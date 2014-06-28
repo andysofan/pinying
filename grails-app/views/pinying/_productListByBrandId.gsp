@@ -13,7 +13,7 @@
 				</div>
 			</div>
 			<p class="pitit"><a href="#" title="" class="bgcolor">${productInstance.name}</a></p>
-			<a class="add" href="#" title="">收藏</a>
+			<a class="add" href="javascript:void(0)" onclick="return toggleFavorite(this, ${productInstance.id})" title="">收藏</a>
 		</li>
 	</g:each>
 	</ul>
