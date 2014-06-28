@@ -13,7 +13,11 @@
 				</div>
 			</div>
 			<p class="pitit"><a href="#" title="" class="bgcolor">${productInstance.name}</a></p>
-			<a class="add" href="javascript:void(0)" onclick="return toggleFavorite(this, ${productInstance.id})" title="">收藏</a>
+			<shiro:isLoggedIn>
+			<a class="add" href="javascript:void(0)" onclick="return toggleFavorite(this, ${productInstance.id})" title="">
+				<g:include controller="favorite" action="isFavorite" params="[productId:productInstance.id]" />
+			</a>
+			</shiro:isLoggedIn>
 		</li>
 	</g:each>
 	</ul>

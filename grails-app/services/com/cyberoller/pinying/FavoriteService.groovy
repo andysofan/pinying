@@ -83,4 +83,29 @@ class FavoriteService {
 		}
 		return result
     }
+	//判断是否已经收藏
+	@Transactional(readOnly = true)
+	def isFavorite (Integer productId)  {
+		def result = ""
+		try{
+			//获取用户ID
+			def currentUserId = this.currentUserId()
+			//取收藏
+			def favoriteInstance = Favorite.withCriteria(uniqueResult:true){
+				eq("user.id", currentUserId)
+				eq("productGoods.id", productId)
+			}
+			if(favoriteInstance){
+				//已经收藏过
+				result = "取消收藏"
+			}else{
+				//还未收藏
+				result = "收藏"
+			}
+		}catch(e){
+			throw new RuntimeException("判断收藏失败：${e.getMessage()}")
+		}
+		log.info "***************isFavorite, productId=${productId}, result=${result}"
+		return result
+	}
 }
