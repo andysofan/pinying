@@ -133,6 +133,23 @@
 	        }
 	    })(jQuery);
 	</script>
+
+	<shiro:isLoggedIn>
+	<script type="text/javascript">
+		function toggleFavorite(obj, productId){
+			$.ajax({
+				url: "${createLink(controller:'favorite', action:'toggleFavorite')}",
+				type: "POST",
+				data: { productId : productId },
+				dataType: "html"
+			}).done(function(result){
+				$(obj).html(result)
+			}).fail(function(jqXHR, textStatus){
+				alert( "Request failed: " + textStatus );
+			});
+		}
+	</script>
+	</shiro:isLoggedIn>
 	<g:layoutHead/>
 </head>
 <body>
