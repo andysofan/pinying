@@ -15,6 +15,7 @@
 				s_marketMaxPrice = parseInt(s_marketMaxPrice, 10);
 				s_marketMaxPrice = isNaN(s_marketMaxPrice)?'':s_marketMaxPrice;
 			var s_name = $("#s_name").val().replace(/\r\n/g, "");
+				s_name = (s_name == '请输入关键字')?'':s_name;
 
 
 			var href="<g:createLink action='brand' params='[brandId:params?.brandId, max:params?.max?:8, offset:params?.offset?:0,sort:sort, order:order]' />";
@@ -57,7 +58,7 @@
 				<span class="fl">-</span>
 				<input id="s_marketMaxPrice" type="text" data-value="￥" class="txt fl inputFocus" value="${params?.marketMaxPrice?:'￥'}" />
 				<span class="fl">|</span>
-				<input id="s_name" type="text" data-value="请输入关键字" class="keywords fl inputFocus" value="${params?.name}" />								            <button type="submit" class="i fl" onclick="search()">确定</button>
+				<input id="s_name" type="text" data-value="请输入关键字" class="keywords fl inputFocus" value="${params?.name}" />								            <button type="button" class="i fl" onclick="search()">确定</button>
 			</div>
 		</div>
 		<div class="glagrPage">
