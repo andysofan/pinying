@@ -148,9 +148,15 @@
                     </a>
                 </div>
                 <div class="fr card">
-					<a id="login" href="login.html">登录</a>
-					<a id="register" href="register.html">注册</a>
-                	<a class="spriteicon" title="我的收藏夹" href="#">我的收藏夹</a>
+					<shiro:isLoggedIn>
+						<shiro:principal/>
+						<a title="退出" href="${createLink(controller:'auth', action:'signOut')}">退出</a>
+						<a class="spriteicon" title="我的收藏夹" href="#">我的收藏夹</a>
+					</shiro:isLoggedIn>
+					<shiro:isNotLoggedIn>
+						<a id="login" href="${createLink(controller:'auth')}">登录</a>
+						<a id="register" href="register.html">注册</a>
+					</shiro:isNotLoggedIn>
                 </div>
             </div>
             <div class="navlist ie7 clearFix">
