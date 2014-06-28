@@ -6,6 +6,26 @@
 	<g:set var="order" value="${params?.order?:'asc'}"/>
 	<g:set var="order" value="${(order == 'asc')?'desc':'asc'}"/>
 	<g:set var="sort" value="${params?.sort?:'quantity'}"/>
+	<script type="text/javascript">
+		function search(){
+			var s_marketMinPrice = $("#s_marketMinPrice").val().replace(/\r\n/g, "");
+				s_marketMinPrice = parseInt(s_marketMinPrice, 10);
+				s_marketMinPrice = isNaN(s_marketMinPrice)?'':s_marketMinPrice;
+			var s_marketMaxPrice = $("#s_marketMaxPrice").val().replace(/\r\n/g, "");
+				s_marketMaxPrice = parseInt(s_marketMaxPrice, 10);
+				s_marketMaxPrice = isNaN(s_marketMaxPrice)?'':s_marketMaxPrice;
+			var s_name = $("#s_name").val().replace(/\r\n/g, "");
+				s_name = (s_name == '请输入关键字')?'':s_name;
+
+
+			var href="<g:createLink action='category' id='${params?.id}' params='[subCategoryId:params?.subCategoryId, brandId:params?.brandId, offset:params?.offset?:0,sort:'quantity', order:order ]' />";
+				href+="&marketMinPrice=" + s_marketMinPrice;
+				href+="&marketMaxPrice=" + s_marketMaxPrice;
+				href+="&name=" + s_name;
+
+			window.location.href = href;
+		}
+	</script>
 </head>
 <body>
 	<div class="searTop mt10">
@@ -47,13 +67,13 @@
 			<label class="fl">价格</label>
 			<ul class="fr">
 				<li>
-					<a href="${createLink(action:'category', id:params?.id, params:[subCategoryId:params?.subCategoryId, brandId:params?.brandId])}" title="">50-100</a>
+					<a href="${createLink(action:'category', id:params?.id, params:[subCategoryId:params?.subCategoryId, brandId:params?.brandId, marketMinPrice: 50,marketMaxPrice:100, name:params?.name, offset:params?.offset,sort:sort, order:order])}" title="">50-100</a>
 				</li>
 				<li>
-					<a href="#" title="">200-300</a>
+					<a href="${createLink(action:'category', id:params?.id, params:[subCategoryId:params?.subCategoryId, brandId:params?.brandId, marketMinPrice: 200,marketMaxPrice:300, name:params?.name, offset:params?.offset,sort:sort, order:order])}" title="">200-300</a>
 				</li>
 				<li>
-					<a href="#" title="">300-400</a>
+					<a href="${createLink(action:'category', id:params?.id, params:[subCategoryId:params?.subCategoryId, brandId:params?.brandId, marketMinPrice: 300,marketMaxPrice:400, name:params?.name, offset:params?.offset,sort:sort, order:order])}" title="">300-400</a>
 				</li>
 			</ul>
 		</div>
@@ -63,25 +83,26 @@
 			<div class="hline fl"></div>
 			<label class="fl">默认排序：</label>
 			<ul class="fl phList">
-				<liclass="${sort == 'quantity'?'arrl':''}">
-					<a href="<g:createLink action='brand' params='[brandId:params?.brandId, max:params?.max?:8, offset:params?.offset?:0,sort:'quantity', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name ]' />" title="">销量 <em class="spriteicon up"></em></a>
+				<li class="${sort == 'quantity'?'arrl':''}">
+					<a href="<g:createLink action='category' id='${params?.id}' params='[subCategoryId:params?.subCategoryId, brandId:params?.brandId, offset:params?.offset?:0,sort:'quantity', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name ]' />" title="">销量 <em class="spriteicon up"></em></a>
 				</li>
-				<li>
-					<a href="#" title="">人气 <em class="spriteicon down"></em></a>
+				<li class="${sort == 'popularity'?'arrl':''}">
+					<a href="<g:createLink action='category' id='${params?.id}' params='[subCategoryId:params?.subCategoryId, brandId:params?.brandId, offset:params?.offset?:0,sort:'popularity', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name ]' />" title="">人气 <em class="spriteicon down"></em></a>
 				</li>
-				<li>
-					<a href="#" title="">最新 <em class="spriteicon down"></em></a>
+				<li class="${sort == 'dateCreated'?'arrl':''}">
+					<a href="<g:createLink action='category' id='${params?.id}' params='[subCategoryId:params?.subCategoryId, brandId:params?.brandId, offset:params?.offset?:0,sort:'dateCreated', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name ]' />" title="">最新 <em class="spriteicon down"></em></a>
 				</li>
-				<li>
-					<a href="#" title="">总价 <em class="spriteicon down"></em></a>
+				<li class="${sort == 'marketMinPrice'?'arrl':''}">
+					<a href="<g:createLink action='category' id='${params?.id}' params='[subCategoryId:params?.subCategoryId, brandId:params?.brandId, offset:params?.offset?:0,sort:'marketMinPrice', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name ]' />" title="">总价 <em class="spriteicon down"></em></a>
 				</li>
 			</ul>
 			<div class="fm-price fl">
-				<input id="inputprice" type="text" data-value="￥" class="txt fl inputFocus" value="￥" />
+				<input id="s_marketMinPrice" type="text" data-value="￥" class="txt fl inputFocus" value="${params?.marketMinPrice?:'￥'}" />
 				<span class="fl">-</span>
-				<input id="inputprice" type="text" data-value="￥" class="txt fl inputFocus" value="￥" />
+				<input id="s_marketMaxPrice" type="text" data-value="￥" class="txt fl inputFocus" value="${params?.marketMaxPrice?:'￥'}" />
 				<span class="fl">|</span>
-				<input id="inputprice" type="text" data-value="请输入关键字" class="keywords fl inputFocus" value="请输入关键字" />								                        	<button type="submit" class="i fl">确定</button>
+				<input id="s_name" type="text" data-value="请输入关键字" class="keywords fl inputFocus" value="${params?.name}" />
+				<button type="button" class="i fl" onclick="search()">确定</button>
 			</div>
 		</div>
 		<div class="glagrPage">
