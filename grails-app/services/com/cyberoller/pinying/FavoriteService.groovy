@@ -108,4 +108,207 @@ class FavoriteService {
 		log.info "***************isFavorite, productId=${productId}, result=${result}"
 		return result
 	}
+	//收藏-取品牌列表
+	@Transactional(readOnly = true)
+	def getBrandList (Object params)  {
+		def brandInstanceList
+		try{
+			//获取用户ID
+			def currentUserId = this.currentUserId()
+			//取收藏列表
+			def favoriteInstanceList = Favorite.withCriteria {
+				createAlias "productGoods", "product"
+				projections{
+					groupProperty("product.id")
+				}
+				join("productGoods")
+				eq("user.id", currentUserId)
+			}
+			log.info "**********favoriteInstanceList=${favoriteInstanceList}"
+			//
+			brandInstanceList = ProductGoods.withCriteria {
+				createAlias "brand", "brand"
+				projections{
+					groupProperty("brand.id","id")
+					groupProperty("brand.name","name")
+				}
+				join("brand")
+				inList("id", favoriteInstanceList)
+				order("brand.orderIndex", "asc")
+				resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
+			}
+			log.info "**********brandInstanceList=${brandInstanceList}"
+		}catch(e){
+			throw new RuntimeException("收藏-取品牌列表错误:${e.getMessage()}")
+		}
+		return brandInstanceList
+	}
+
+	//收藏-取分类列表
+	@Transactional(readOnly = true)
+	def getCategoryList(Object params){
+		def categoryInstanceList
+		try{
+			//获取用户ID
+			def currentUserId = this.currentUserId()
+			//取收藏列表
+			def favoriteInstanceList = Favorite.withCriteria {
+				createAlias "productGoods", "product"
+				projections{
+					groupProperty("product.id")
+				}
+				join("productGoods")
+				eq("user.id", currentUserId)
+			}
+			categoryInstanceList = ProductGoods.withCriteria {
+				createAlias "category", "category"
+				projections{
+					groupProperty("category.id","id")
+					groupProperty("category.name","name")
+				}
+				join("category")
+				inList("id", favoriteInstanceList)
+				order("category.orderIndex", "asc")
+				resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
+			}
+		}catch(e){
+			throw new RuntimeException("收藏-取分类列表错误:${e.getMessage()}")
+		}
+		return categoryInstanceList
+	}
+
+	//收藏-取产品列表****************************************************************
+	@Transactional(readOnly = true)
+	def getProductList(Object params){
+		def productInstanceList
+		try{
+			//获取用户ID
+			def currentUserId = this.currentUserId()
+			//取收藏列表
+			def favoriteInstanceList = Favorite.withCriteria {
+				createAlias "productGoods", "product"
+				projections{
+					groupProperty("product.id")
+				}
+				join("productGoods")
+				eq("user.id", currentUserId)
+			}
+			//取产品列表
+			productInstanceList = ProductGoods.withCriteria() {
+				projections{
+					property("id", "id")
+					property("name", "name")
+					property("thumbnail", "thumbnail")
+					property("marketMinPrice", "marketMinPrice")
+					property("marketMaxPrice", "marketMaxPrice")
+				}
+				inList("id", favoriteInstanceList)
+				if(params?.brandId){
+					eq("brand.id", params.int('brandId'))
+				}
+				if(params?.categoryId){
+					eq("category.id", params.int('categoryId'))
+				}
+				
+				eq("status", 1)
+				//名称
+				if(params?.name){
+					ilike("name", "%${params?.name}%")
+				}
+				//价格区间
+				if(params?.marketMinPrice && params?.marketMaxPrice){
+					or{
+						between("marketMinPrice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
+						between("marketMaxPrice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
+					}
+				}else{
+					if(params?.marketMinPrice){
+						or{
+							ge("marketMinPrice", params.int('marketMinPrice').toDouble())
+							ge("marketMaxPrice", params.int('marketMinPrice').toDouble())
+						}
+					}
+					if(params?.marketMaxPrice){
+						or{
+							le("marketMinPrice", params.int('marketMaxPrice').toDouble())
+							le("marketMaxPrice", params.int('marketMaxPrice').toDouble())
+						}
+					}
+				}
+
+				if(params?.order && params?.sort){
+					order(params?.sort, params?.order)
+				}else{
+					order("orderIndex", "desc")
+				}
+
+				if(params?.offset) firstResult(params.int('offset'))
+
+				maxResults(8)
+				resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
+			}
+		}catch(e){
+			throw new RuntimeException("收藏-取产品列表错误:${e.getMessage()}")
+		}
+		return productInstanceList
+	}
+	def getProductCount(Object params){
+		def productInstanceCount
+		try{
+			//获取用户ID
+			def currentUserId = this.currentUserId()
+			//取收藏列表
+			def favoriteInstanceList = Favorite.withCriteria {
+				createAlias "productGoods", "product"
+				projections{
+					groupProperty("product.id")
+				}
+				join("productGoods")
+				eq("user.id", currentUserId)
+			}
+			productInstanceCount = ProductGoods.withCriteria(uniqueResult:true) {
+				projections{
+					count()
+				}
+				inList("id", favoriteInstanceList)
+				if(params?.brandId){
+					eq("brand.id", params.int('brandId'))
+				}
+				if(params?.categoryId){
+					eq("category.id", params.int('categoryId'))
+				}
+				eq("status", 1)
+				//名称
+				if(params?.name){
+					ilike("name", "%${params?.name}%")
+				}
+				//价格区间
+				if(params?.marketMinPrice && params?.marketMaxPrice){
+					or{
+						between("marketMinPrice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
+						between("marketMaxPrice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
+					}
+				}else{
+					if(params?.marketMinPrice){
+						or{
+							ge("marketMinPrice", params.int('marketMinPrice').toDouble())
+							ge("marketMaxPrice", params.int('marketMinPrice').toDouble())
+						}
+					}
+					if(params?.marketMaxPrice){
+						or{
+							le("marketMinPrice", params.int('marketMaxPrice').toDouble())
+							le("marketMaxPrice", params.int('marketMaxPrice').toDouble())
+						}
+					}
+				}
+			}
+			if(!productInstanceCount){
+				productInstanceCount = 0
+			}
+		}catch(e){
+			throw new RuntimeException("收藏-取产品列表数据错误:${e.getMessage()}")
+		}
+		return productInstanceCount
+	}
 }

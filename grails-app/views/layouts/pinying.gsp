@@ -168,7 +168,7 @@
 					<shiro:isLoggedIn>
 						<shiro:principal/>
 						<a title="退出" href="${createLink(controller:'auth', action:'signOut')}">退出</a>
-						<a class="spriteicon" title="我的收藏夹" href="#">我的收藏夹</a>
+						<a class="spriteicon" title="我的收藏夹" href="${createLink(controller:'favorite')}">我的收藏夹</a>
 					</shiro:isLoggedIn>
 					<shiro:isNotLoggedIn>
 						<a id="login" href="${createLink(controller:'auth')}">登录</a>
@@ -181,17 +181,17 @@
                 <ul class="nav fl">
                 	<!-- 首页 -->
                     <li class="first">
-                        <a href="${createLink(action:'index')}" title="首页" class="home i1">首页</a>
+                        <a href="${createLink( controller:'pinying', action:'index')}" title="首页" class="home i1">首页</a>
                     </li>
                     <!-- 品牌专区 -->
                     <li class="navi0 navi02">
                         <a href="${createLink(action:'brand', params:[brandId:-1])}" title="" class="i1">品牌专区</a>
                         <div class="naviHover" style="display:none;">
-							<g:include action="menuBrandList" />
+							<g:include controller="pinying" action="menuBrandList" />
                         </div>
                     </li>
                     <!-- 分类菜单 -->
-                   	<g:include action="menuFirstLevelCategory" />
+                   	<g:include controller="pinying" action="menuFirstLevelCategory" />
                     <!-- 其他 -->
                     <li class="navi0">
                         <a href="#" title="" class="i1">其他</a>
@@ -236,12 +236,12 @@
             		<h2>最新推荐</h2>
                     <div class="listnew">
 						<!--推荐产品-->
-						<g:include action="recommendProductList" />
+						<g:include controller="pinying" action="recommendProductList" />
 
 
                         <div class="newcard">
 							<!--最热礼品-->
-                            <g:include action="hotestProduct" />
+                            <g:include controller="pinying" action="hotestProduct" />
                             <p class="mt10 hotcard">
                                 <a href="#" title="">最热礼品</a>
                             </p>
