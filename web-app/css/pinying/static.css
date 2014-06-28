@@ -1,0 +1,44 @@
+/* page */
+
+/* hpFocus  hpslides*/
+.pdleft{ width:579px;}
+.pdright{ width:176px;}
+.pdright h3, .pdright p, .detailinfo p{ color:#c0a354; line-height:14px;}
+.pdright p{ text-align:center; margin:6px 0;}
+.productdetail .hpslides{ position:relative;width:579px;height:409px}
+.productdetail .hpslides .slides{ position:relative}
+.productdetail .hpslides .slides li{ float:left;width:579px;height:409px;overflow:hidden}
+.flex-direction-nav{ width:50px; margin:12px auto 0;}
+.flex-direction-nav li{ float:left; width:17px;}
+.productdetail .flex-prev, .flex-next{ background:url(images/flextron.png) no-repeat -3px -3px; position:relative; width:17px;height:16px;text-indent:-999px;z-index:2;cursor:pointer;overflow:hidden; display:inline-block; float:left;}
+.productdetail .flex-next{ background-position:-28px -3px; margin-left:10px;}
+.detailinfo ul li{ border-bottom:1px solid #c0a354; line-height:15px; padding:5px 0;}
+.detailinfo label{ display:inline-block; width:65px; text-align:left; float:left; color:#c0a354;}
+.detailinfo span{ float:left; display:inline-block; color:#888; width:280px;}
+.dfinfo{ border:1px solid #c0a354; padding:10px; color:#888; margin:5px 0 30px 0;}
+
+
+/* jobs */
+.jobs{ padding:50px 0 0 170px; width:338px;}
+.jobs li{ list-style:disc; color:#5e6774;}
+.jobs li a{ color:#5e6774; text-decoration:underline; line-height:18px;}
+.jobs li a:hover{ text-decoration:none;}
+.jobslist{ padding:50px 0;}
+.jobslist th, .jobslist td{ padding:5px; color:#ababab;}
+.jobslist td, .jobslist th{ border-bottom:1px solid #ababab;}
+.jobslist td span{ color:#b5994f;}
+.jobs ul{ width:120px;}
+
+/* company */
+.info{ padding:10px 0;}
+.info p, .brandlist h2{ color:#b5994f; line-height:18px;}
+.cominfo .lof{ width:187px; padding:40px 10px 0;}
+.cominfo .lf{ width:478px; padding:40px 80px 0 0;}
+.cominfo .lf p{ color:#808080; line-height:30px;}
+.tmain{ padding:50px 0 0;}
+.contact p, .contact a{ color:#656565;}
+.contact a:hover{ text-decoration:underline;}
+.confot{ border-bottom:1px solid #ababab; width:395px; text-align:right; color:#ababab; margin:40px 0 0; line-height:20px;}
+.brandlist li{ width:144px; float:left; border:1px solid #acacac; margin-right:54px;}
+.brandlist li.lastbrand{ margin:0;}
+
