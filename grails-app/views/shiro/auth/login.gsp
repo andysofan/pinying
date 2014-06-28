@@ -3,9 +3,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="layout" content="login" />
 	<title>
-		<g:message code="login.page.title" />
+		登录
 		~
-		<g:message code="global.app.name" />
+		Best Gift
 	</title>
 </head>
 <body>
@@ -15,39 +15,42 @@
 			<g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"/>
 		</div>
 	</g:if>
-	<g:form action="signIn" class="pure-form pure-form-aligned">
-	
-		<input type="hidden" name="targetUri" value="${targetUri}" />
-		
-		<fieldset>
-			<legend><g:message code="login.page.title" default="Login" /></legend>
-			
-			<!--username-->
-			<div class="pure-control-group">
-				<label for="username">
-					<g:message code="login.page.username" default="Username" />
-				</label>
-				<input type="text" name="username" value="${username}" placeholder="${message(code:'login.page.username', default : 'Username')}"/>
-        	</div>
-        	<!--password-->
-        	<div class="pure-control-group">
-				<label for="password">
-					<g:message code="login.page.password" default="Password" />
-				</label>
-				<input type="password" name="password" value="" placeholder="${message(code:'login.page.password', default : 'Password')}"/>
-			</div>	
-			<!--remember me-->
-			<div class="pure-controls">
-				<label for="rememberMe" class="pure-checkbox">
-					<g:checkBox name="rememberMe" value="${rememberMe}" />
-					<g:message code="login.page.rememberMe" default="Remember me?" />
-				</label>
 
-				<button type="submit" class="pure-button pure-button-primary">
-					<g:message code="login.page.signIn" default="Sign in" />
-				</button>
-			</div>
-		</fieldset>		
-	</g:form>
+	<div id="loginPanel">
+		<div class="title clearFix">
+			<label class="fl">登 录</label>
+			<label class="reg fr">还没有帐号？<a href="register.html">马上注册 &gt;&gt;</a></label>
+		</div>
+		<div class="content">
+			<g:form action="signIn">
+				<table width="970" border="0" cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<td width="112" height="53" align="right">用户名</td>
+							<td width="617">
+								<input type="text" value="${username}" class="text :email :max_length;60 :required fl" name="username">
+								<label class="info fl">你可用email进行登录</label>
+							</td>
+						</tr>
+						<tr>
+							<td height="53" align="right">密码</td>
+							<td>
+								<input type="password" class="text :min_length;6 :max_length;30 :required fl" name="password">
+								<label class="info fl">输入6-30位密码</label>
+							</td>
+						</tr>
+						<tr>
+							<td height="49">&nbsp;</td>
+							<td>
+								<button type="submit" class="pure-button pure-button-primary">
+									登 录
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</g:form>
+		</div>
+	</div>
 </body>
 </html>
