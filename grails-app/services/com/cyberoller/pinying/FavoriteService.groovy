@@ -9,8 +9,6 @@ import org.codehaus.groovy.grails.web.metaclass.BindDynamicMethod
 import org.apache.shiro.SecurityUtils
 import com.cyberoller.pinying.shiro.User
 
-import com.szmallecar.domain.product.ProductGoods
-
 class FavoriteService {
 
 	static transactional = false
@@ -197,10 +195,9 @@ class FavoriteService {
 			productInstanceList = ProductGoods.withCriteria() {
 				projections{
 					property("id", "id")
-					property("name", "name")
-					property("thumbnail", "thumbnail")
-					property("marketMinPrice", "marketMinPrice")
-					property("marketMaxPrice", "marketMaxPrice")
+					property("xname", "name")
+					property("xthumbnail", "thumbnail")
+					property("xprice", "price")
 				}
 				inList("id", favoriteInstanceList)
 				if(params?.brandId){
@@ -210,36 +207,27 @@ class FavoriteService {
 					eq("category.id", params.int('categoryId'))
 				}
 				
-				eq("status", 1)
+				eq("xstatus", 1)
 				//名称
 				if(params?.name){
-					ilike("name", "%${params?.name}%")
+					ilike("xname", "%${params?.name}%")
 				}
 				//价格区间
 				if(params?.marketMinPrice && params?.marketMaxPrice){
-					or{
-						between("marketMinPrice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
-						between("marketMaxPrice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
-					}
+					between("xprice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
 				}else{
 					if(params?.marketMinPrice){
-						or{
-							ge("marketMinPrice", params.int('marketMinPrice').toDouble())
-							ge("marketMaxPrice", params.int('marketMinPrice').toDouble())
-						}
+						ge("xprice", params.int('marketMinPrice').toDouble())
 					}
 					if(params?.marketMaxPrice){
-						or{
-							le("marketMinPrice", params.int('marketMaxPrice').toDouble())
-							le("marketMaxPrice", params.int('marketMaxPrice').toDouble())
-						}
+						le("xprice", params.int('marketMaxPrice').toDouble())
 					}
 				}
 
 				if(params?.order && params?.sort){
 					order(params?.sort, params?.order)
 				}else{
-					order("orderIndex", "desc")
+					order("xorderIndex", "desc")
 				}
 
 				if(params?.offset) firstResult(params.int('offset'))
@@ -277,29 +265,20 @@ class FavoriteService {
 				if(params?.categoryId){
 					eq("category.id", params.int('categoryId'))
 				}
-				eq("status", 1)
+				eq("xstatus", 1)
 				//名称
 				if(params?.name){
-					ilike("name", "%${params?.name}%")
+					ilike("xname", "%${params?.name}%")
 				}
 				//价格区间
 				if(params?.marketMinPrice && params?.marketMaxPrice){
-					or{
-						between("marketMinPrice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
-						between("marketMaxPrice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
-					}
+					between("xprice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
 				}else{
 					if(params?.marketMinPrice){
-						or{
-							ge("marketMinPrice", params.int('marketMinPrice').toDouble())
-							ge("marketMaxPrice", params.int('marketMinPrice').toDouble())
-						}
+						ge("xprice", params.int('marketMinPrice').toDouble())
 					}
 					if(params?.marketMaxPrice){
-						or{
-							le("marketMinPrice", params.int('marketMaxPrice').toDouble())
-							le("marketMaxPrice", params.int('marketMaxPrice').toDouble())
-						}
+						le("xprice", params.int('marketMaxPrice').toDouble())
 					}
 				}
 			}
