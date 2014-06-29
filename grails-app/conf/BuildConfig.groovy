@@ -73,6 +73,9 @@ grails.project.dependency.resolution = {
         //compile ":less-asset-pipeline:1.7.0"
         //compile ":coffee-asset-pipeline:1.7.0"
         //compile ":handlebars-asset-pipeline:1.3.0.3"
+        
+        compile ":pure-css:0.4.2"			// http://grails.org/plugin/pure-css
+		compile ":platform-core:1.0.0"		// http://grails.org/plugin/platform-core        
 		//shiro
 		compile (":shiro:1.2.1"){			// http://grails.org/plugin/shiro
         	excludes "quartz"

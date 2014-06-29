@@ -1,0 +1,189 @@
+body {
+	max-width: 100%;
+	width:100%;
+	min-height:100%;
+	font-size:14px;
+	background-color:#CECECE;
+}
+body > .main {
+	height: auto;
+	min-height:100%;
+	max-width: 99.5%;
+	margin: 0 0.25% 0px 0.25%;
+	background-color:white;
+}
+/*Header*/
+.header{
+	background-color:#00884a;
+}
+
+.header .global_title{
+	padding : 20px 0px 20px 10px;
+	font-family: 'Arial', 'Helvetica';
+	font-weight: bodd;
+	font-size: 32pt;
+	color: #FFF;
+	text-decoration: none;
+}
+
+.header .sub_title{
+	padding : 5px 0px 5px 10px;
+	font-family: 'Arial', 'Helvetica';
+	font-weight: bodd;
+	color: #FFF;
+	text-decoration: none;
+}
+
+/*content*/
+.blank_line{
+	background-color:#CECECE;
+	height : 5px;
+	border : 0px solid #6B83AF;
+	margin : 0px;
+	padding: 0px;
+	font-size:0pt;
+}
+
+/*Footer*/
+.footer{
+	width:99.5%;
+	margin: 0 0.25% 0px 0.25%;
+	background-color:#00884a;
+	padding : 0px;
+	clear:both;
+	height: 10px;
+}
+
+/* NAVIGATION MENU */
+
+.nav {
+    height:20px;
+}
+
+.nav ul {
+	margin:0px;
+}
+
+.nav li {
+	margin : 0px 5px 10px 0px;
+}
+
+.nav a.active {
+	background-color: #999999;
+	color: #ffffff;
+	outline: none;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+}
+/*只读属性的背景色*/
+input, textarea{
+    background-color:expression(this.readOnly==true?"#009966":"#FFFFFF");
+}
+
+input[readonly], textarea[readonly]{
+	color : white;
+    background-color:#009966;
+}
+
+
+/*修改表格标题颜色和文本左对齐*/
+caption {
+	color : red;
+	text-align:left;
+}
+/*BOOLEAN 字段颜色*/
+.fieldcontain {
+	margin-top: 5px;
+}
+.fieldcontain .YES{
+	color:green;
+}
+.fieldcontain .NO{
+	color:red;
+}
+/*数字右对齐*/
+td.number, td.number input, th.number{
+	text-align:right;
+}
+/*备注的颜色*/
+td.description{
+	color : red;
+}
+/*修改TD，TH内间距*/
+td, th{
+	padding : 5px;
+	white-space: nowrap;
+}
+/*修改单元格边框*/
+/*
+#create-deliveryOrder td, #create-deliveryOrder th{
+    border-right:1px dotted #009933;
+}
+*/
+
+.purchaseOrderDetail a{
+	margin-left : 8px;
+	text-decoration:none;
+}
+/*placeholder*/
+::-webkit-input-placeholder {
+   color: green;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: green;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: green;
+}
+
+:-ms-input-placeholder {
+   color: green;
+}
+
+
+/*修改选中菜单背景色*/
+a.pure-menu-selected{
+    background-color: #EEEEEE;
+}
+a.pure-menu-selected{
+    color: #235686;
+}
+/*主页设备列表样式*/
+.device-box{
+	padding : 5px;
+	margin  : 1px;
+	border  : 1px black #E7E7E7;
+	text-align: center;
+	color:white;
+	font-size:18px;
+}
+.device-box-on {
+	background-color:#66CC00;
+}
+.device-box-off {
+	background-color:#FF6633;
+}
+.device-box-on, .device-box-off {
+	color:white;
+}
+
+/*个性标题字体大小*/
+.pure-form legend {
+	font-size:24px;
+}
+
+
+/*右上角菜单*/
+.right_top_menu li {
+    background-color: #00884a;
+    text-align: center;
+    float: right;
+    margin: 0 0 0 0;
+    padding: 0 3px 0 3px;
+    list-style-type: none;
+    color : white;
+}
+.right_top_menu li a{
+    color : white;
+}
