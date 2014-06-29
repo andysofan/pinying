@@ -40,7 +40,7 @@ class FavoriteController {
 	}
 
 	//切换收藏
-    def toggleFavorite(Integer productId) { 
+    def toggleFavorite(Long productId) { 
 		def result=""
 		try{
 			result = favoriteService.toggleFavorite(productId)
@@ -51,7 +51,7 @@ class FavoriteController {
 	}
 
 	//判断是否收藏
-	def isFavorite (Integer productId) {
+	def isFavorite (Long productId) {
 		def result=""
 		try{
 			result = favoriteService.isFavorite(productId)

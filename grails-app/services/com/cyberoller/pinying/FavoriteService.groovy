@@ -31,7 +31,7 @@ class FavoriteService {
 		return currentUserId
     }
 
-    def toggleFavorite(Integer productId) {
+    def toggleFavorite(Long productId) {
 		def result = ""
 		Favorite.withTransaction { status ->
 			try{
@@ -83,7 +83,7 @@ class FavoriteService {
     }
 	//判断是否已经收藏
 	@Transactional(readOnly = true)
-	def isFavorite (Integer productId)  {
+	def isFavorite (Long productId)  {
 		def result = ""
 		try{
 			//获取用户ID
@@ -128,11 +128,11 @@ class FavoriteService {
 				createAlias "brand", "brand"
 				projections{
 					groupProperty("brand.id","id")
-					groupProperty("brand.name","name")
+					groupProperty("brand.xname","name")
 				}
 				join("brand")
 				inList("id", favoriteInstanceList)
-				order("brand.orderIndex", "asc")
+				order("brand.xorderIndex", "asc")
 				resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
 			}
 			log.info "**********brandInstanceList=${brandInstanceList}"
@@ -162,11 +162,11 @@ class FavoriteService {
 				createAlias "category", "category"
 				projections{
 					groupProperty("category.id","id")
-					groupProperty("category.name","name")
+					groupProperty("category.xname","name")
 				}
 				join("category")
 				inList("id", favoriteInstanceList)
-				order("category.orderIndex", "asc")
+				order("category.xorderIndex", "asc")
 				resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
 			}
 		}catch(e){
@@ -201,10 +201,10 @@ class FavoriteService {
 				}
 				inList("id", favoriteInstanceList)
 				if(params?.brandId){
-					eq("brand.id", params.int('brandId'))
+					eq("brand.id", params.int('brandId').toLong())
 				}
 				if(params?.categoryId){
-					eq("category.id", params.int('categoryId'))
+					eq("category.id", params.int('categoryId').toLong())
 				}
 				
 				eq("xstatus", 1)
@@ -260,10 +260,10 @@ class FavoriteService {
 				}
 				inList("id", favoriteInstanceList)
 				if(params?.brandId){
-					eq("brand.id", params.int('brandId'))
+					eq("brand.id", params.int('brandId').toLong())
 				}
 				if(params?.categoryId){
-					eq("category.id", params.int('categoryId'))
+					eq("category.id", params.int('categoryId').toLong())
 				}
 				eq("xstatus", 1)
 				//名称

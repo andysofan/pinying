@@ -5,7 +5,7 @@
 	<title>收藏~Best Gift</title>
 	<g:set var="order" value="${params?.order?:'asc'}"/>
 	<g:set var="order" value="${(order == 'asc')?'desc':'asc'}"/>
-	<g:set var="sort" value="${params?.sort?:'quantity'}"/>
+	<g:set var="sort" value="${params?.sort}"/>
 	<script type="text/javascript">
 		function search(){
 			var s_marketMinPrice = $("#s_marketMinPrice").val().replace(/\r\n/g, "");
@@ -17,7 +17,7 @@
 			var s_name = $("#s_name").val().replace(/\r\n/g, "");
 				s_name = (s_name == '请输入关键字')?'':s_name;
 
-			var href="<g:createLink action='index' params='[brandId:params?.brandId, offset:params?.offset?:0,sort:sort, order:order]' />";
+			var href="<g:createLink controller='favorite' action='index' params='[brandId:params?.brandId, offset:params?.offset?:0,sort:sort, order:order]' />";
 				href+="&marketMinPrice=" + s_marketMinPrice;
 				href+="&marketMaxPrice=" + s_marketMaxPrice;
 				href+="&name=" + s_name;
@@ -36,7 +36,7 @@
 					<g:if test="${params?.categoryId}">
 						<li category="${params?.categoryId}">
 							<a href="${createLink(action:'index')}" title="">
-								<g:include controller="pinying" action="getCategoryName" params="[categoryId:params?.categoryId]" />
+								<g:include controller="index" action="getCategoryName" params="[categoryId:params?.categoryId]" />
 								<em class="filter_cancel">X</em>
 							</a>
 						</li>
@@ -44,7 +44,7 @@
 					<g:if test="${params?.brandId}">
 						<li category="${params?.brandId}">
 							<a href="${createLink(action:'index', params:[categoryId:params?.categoryId])}" title="">
-								<g:include controller="pinying" action="getBrandName" params="[brandId:params?.brandId]" />
+								<g:include controller="index" action="getBrandName" params="[brandId:params?.brandId]" />
 								<em class="filter_cancel">X</em>
 							</a>
 						</li>
@@ -89,19 +89,19 @@
 			<div class="hline fl"></div>
 			<label class="fl">默认排序：</label>
 			<ul class="fl phList">
-				<li class="${sort == 'quantity'?'arrl':''}">
-					<a href="<g:createLink action='index' params='[brandId:params?.brandId, categoryId:params?.categoryId, offset:params?.offset?:0,sort:'quantity', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name ]' />" title="">
+				<li class="${sort == 'xquantity'?'arrl':''}">
+					<a href="<g:createLink action='index' params='[brandId:params?.brandId, categoryId:params?.categoryId, offset:params?.offset?:0,sort:'xquantity', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name ]' />" title="">
 						销量<em class="spriteicon ${(order == 'asc')?'up':'down'}"></em>
 					</a>
 				</li>
-				<li class="${sort == 'popularity'?'arrl':''}">
-					<a href="<g:createLink action='index' params='[brandId:params?.brandId, categoryId:params?.categoryId, offset:params?.offset?:0,sort:'popularity', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name]' />" title="">人气<em class="spriteicon ${(order == 'asc')?'down':'up'}"></em></a>
+				<li class="${sort == 'xpopularity'?'arrl':''}">
+					<a href="<g:createLink action='index' params='[brandId:params?.brandId, categoryId:params?.categoryId, offset:params?.offset?:0,sort:'xpopularity', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name]' />" title="">人气<em class="spriteicon ${(order == 'asc')?'down':'up'}"></em></a>
 				</li>
 				<li class="${sort == 'dateCreated'?'arrl':''}">
 					<a href="<g:createLink action='index' params='[brandId:params?.brandId, categoryId:params?.categoryId, offset:params?.offset?:0,sort:'dateCreated', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name]' />" title="">最新<em class="spriteicon ${(order == 'asc')?'down':'up'}"></em></a>
 				</li>
-				<li class="${sort == 'marketMinPrice'?'arrl':''}">
-					<a href="<g:createLink action='index' params='[brandId:params?.brandId, categoryId:params?.categoryId, offset:params?.offset?:0,sort:'marketMinPrice', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name]' />" title="">总价<em class="spriteicon ${(order == 'asc')?'down':'up'}"></em></a>
+				<li class="${sort == 'xprice'?'arrl':''}">
+					<a href="<g:createLink action='index' params='[brandId:params?.brandId, categoryId:params?.categoryId, offset:params?.offset?:0,sort:'xprice', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name]' />" title="">总价<em class="spriteicon ${(order == 'asc')?'down':'up'}"></em></a>
 				</li>
 			</ul>
 			<div class="fm-price fl">
