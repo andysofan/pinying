@@ -198,23 +198,23 @@
                     </li>
                     <!-- 关于我们 -->
                     <li class="navi02 navi0">
-                        <a href="#" title="" class="i1">关于我们</a>
+                        <a href="javascript:void(0)" title="" class="i1">关于我们</a>
                         <div class="naviHover" style="display:none;">
                         	<dl>
                             	<dd>
-                                	<a href="#" title="">品牌建设</a>
+                                	<a href="${createLink(controller:'about', action:'brand')}" title="">品牌建设</a>
                                 </dd>
                             	<dd>
-                                	<a href="#" title="">成功案例</a>
+                                	<a href="${createLink(controller:'about', action:'company')}" title="">成功案例</a>
                                 </dd>
                             	<dd>
-                                	<a href="#" title="">公司简介</a>
+                                	<a href="${createLink(controller:'about', action:'company')}" title="">公司简介</a>
                                 </dd>
                             	<dd>
-                                	<a href="#" title="">人才招聘</a>
+                                	<a href="${createLink(controller:'about', action:'job')}" title="">人才招聘</a>
                                 </dd>
                             	<dd>
-                                	<a href="#" title="">联系我们</a>
+                                	<a href="${createLink(controller:'about', action:'contact')}" title="">联系我们</a>
                                 </dd>
                             </dl>
                         </div>
