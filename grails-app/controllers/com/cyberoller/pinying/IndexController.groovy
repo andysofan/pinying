@@ -32,7 +32,7 @@ class IndexController {
 		}
 	}
 	//菜单-取2级分类
-	def menuSecondLevelCategory(Integer categoryId){
+	def menuSecondLevelCategory(Long categoryId){
 		log.info "**********menuSecondLevelCategory=${categoryId}"
 		try{
 			def secondLevelCategoryInstanceList = indexService.menuSecondLevelCategory(categoryId)
@@ -76,7 +76,7 @@ class IndexController {
 		}
 	}
 	//品牌-主页
-	def brand (Integer brandId)  {
+	def brand (Long brandId)  {
 		log.info "**********brand:${brandId}"
 		try{
 			def productInstanceList = indexService.getProductListByBrandId(brandId, params)
@@ -88,7 +88,7 @@ class IndexController {
 		}
 	}
 	//分类-主页
-	def category (Integer id)  {
+	def category (Long id)  {
 		log.info "**********category:${id}"
 		try{
 			//取标题
@@ -102,7 +102,7 @@ class IndexController {
 		}
 	}
 	//获取分类名称
-	def getCategoryName (Integer categoryId)  {
+	def getCategoryName (Long categoryId)  {
 	    log.info "**********getCategoryName:${categoryId}"
 		def result = ""
 		try{
@@ -114,7 +114,7 @@ class IndexController {
 		render "${result}"
 	}
 	//获取分类名称
-	def getBrandName (Integer brandId)  {
+	def getBrandName (Long brandId)  {
 	    log.info "**********getBrandName:${brandId}"
 		def result = ""
 		try{
@@ -126,7 +126,7 @@ class IndexController {
 		render "${result}"
 	}
 	//分类-取品牌列表,根据1级分类ID
-	def getBrandListByParentCategoryId(Integer parentCategoryId){
+	def getBrandListByParentCategoryId(Long parentCategoryId){
 		log.info "**********getBrandListByParentCategoryId${parentCategoryId}"
 		try{
 			def brandListByParentCategoryId = indexService.getBrandListByParentCategoryId(parentCategoryId, params)
@@ -137,7 +137,7 @@ class IndexController {
 		}
 	}
 	//分类-取子分类列表，根据1级分类ID
-	def getCategoryListByParentCategoryId(Integer parentCategoryId){
+	def getCategoryListByParentCategoryId(Long parentCategoryId){
 		log.info "**********getCategoryListByParentCategoryId:${parentCategoryId}"
 		try{
 			def categoryListByParentCategoryId = indexService.getCategoryListByParentCategoryId(parentCategoryId)
@@ -148,7 +148,7 @@ class IndexController {
 		}
 	}
 	//分类-取品牌列表,根据2级分类ID
-	def getBrandListByCategoryId(Integer categoryId){
+	def getBrandListByCategoryId(Long categoryId){
 		log.info "**********getBrandListByCategoryId:${categoryId}"
 		try{
 			def getBrandListByCategoryId = indexService.getBrandListByCategoryId(categoryId)
@@ -159,7 +159,7 @@ class IndexController {
 		}
 	}
 	//分类-取产品列表
-	def getProductListByCateogryId(Integer categoryId, Integer offset){
+	def getProductListByCateogryId(Long categoryId, Long offset){
 		log.info "**********getProductListByCateogryId:${categoryId},offset:${offset}"
 		try{
 			def getProductListByCateogryId = indexService.getProductListByCateogryId(categoryId, offset, params)

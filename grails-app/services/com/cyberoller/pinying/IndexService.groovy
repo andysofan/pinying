@@ -49,7 +49,7 @@ class IndexService {
 	}
 	//菜单-取2级分类****************************************************************
 	@Transactional(readOnly = true)
-	def menuSecondLevelCategory(Integer parentId){
+	def menuSecondLevelCategory(Long parentId){
 		def categoryInstanceList
 		try{
 			categoryInstanceList = ProductCategory.withCriteria {
@@ -60,7 +60,7 @@ class IndexService {
 				}
 				join("parent")
 				eq("xlevel", 1)
-				eq("parent.id", parentId.toLong())
+				eq("parent.id", parentId)
 				order("xorderIndex", "asc")
 				resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
 			}
@@ -139,7 +139,7 @@ class IndexService {
 	}
 	//品牌-取产品列表****************************************************************
 	@Transactional(readOnly = true)
-	def getProductListByBrandId(Integer brandId, Object params){
+	def getProductListByBrandId(Long brandId, Object params){
 		def productInstanceList
 		try{
 			productInstanceList = ProductGoods.withCriteria() {
@@ -189,7 +189,7 @@ class IndexService {
 		}
 		return productInstanceList
 	}
-	def getProductCountByBrandId(Integer brandId, Object params){
+	def getProductCountByBrandId(Long brandId, Object params){
 		def productInstanceCount
 		try{
 			productInstanceCount = ProductGoods.withCriteria(uniqueResult:true) {
@@ -201,7 +201,7 @@ class IndexService {
 				}else{
 					isNotNull("brand.id")
 				}
-				eq("status", 1)
+				eq("xstatus", 1)
 				//名称
 				if(params?.name){
 					ilike("xname", "%${params?.name}%")
@@ -222,14 +222,14 @@ class IndexService {
 				productInstanceCount = 0
 			}
 		}catch(e){
-			throw new RuntimeException("品牌-取产品列表数据错误:${e.getMessage()}")
+			throw new RuntimeException("品牌-取产品数量错误:${e.getMessage()}")
 		}
 		return productInstanceCount
 	}
 	//分类-取品牌列表,根据1级分类ID****************************************************************
 	//分类-获取分类名称
 	@Transactional(readOnly = true)
-	def getCategoryName (Integer categoryId)  {
+	def getCategoryName (Long categoryId)  {
 		def categoryName
 		try{
 			categoryName = ProductCategory.withCriteria(uniqueResult:true) {
@@ -245,7 +245,7 @@ class IndexService {
 	}
 	//分类-获取品牌名称
 	@Transactional(readOnly = true)
-	def getBrandName (Integer brandId)  {
+	def getBrandName (Long brandId)  {
 		def brandName
 		try{
 			brandName = Brand.withCriteria(uniqueResult:true) {
@@ -260,7 +260,7 @@ class IndexService {
 		return brandName	    
 	}
 	@Transactional(readOnly = true)
-	def getBrandListByParentCategoryId(Integer categoryId, Object params){
+	def getBrandListByParentCategoryId(Long categoryId, Object params){
 		def brandInstanceList
 		try{
 			def categoryInstanceList = ProductCategory.withCriteria {
@@ -295,7 +295,7 @@ class IndexService {
 	}
 	//分类-取子分类列表，根据1级分类ID****************************************************************
 	@Transactional(readOnly = true)
-	def getCategoryListByParentCategoryId(Integer parentCategoryId){
+	def getCategoryListByParentCategoryId(Long parentCategoryId){
 		def categoryInstanceList
 		try{
 			categoryInstanceList = ProductCategory.withCriteria {
@@ -317,7 +317,7 @@ class IndexService {
 	//分类-取品牌列表,根据2级分类ID****************************************************************
 	
 	@Transactional(readOnly = true)
-	def getBrandListByCategoryId(Integer categoryId){
+	def getBrandListByCategoryId(Long categoryId){
 		def brandInstanceList
 		try{
 			brandInstanceList = ProductCategoryBrand.withCriteria {
@@ -338,7 +338,7 @@ class IndexService {
 	}
 	//分类-取产品列表****************************************************************
 	@Transactional(readOnly = true)
-	def getProductListByCateogryId(Integer parentCategoryId, Object params){
+	def getProductListByCateogryId(Long parentCategoryId, Object params){
 		log.info "**********getProductListByCateogryId:${parentCategoryId}"
 		def productInstanceList
 		try{
@@ -406,7 +406,7 @@ class IndexService {
 		return productInstanceList
 	}
 	@Transactional(readOnly = true)
-	def getProductCountByCateogryId(Integer parentCategoryId, Object params){
+	def getProductCountByCateogryId(Long parentCategoryId, Object params){
 		def productInstanceCount
 		try{
 			def subCategoryInstanceList = ProductCategory.withCriteria {
