@@ -22,6 +22,12 @@ class Role {
         description(nullable:true, blank:true, maxSize:200)
     }
     
+	def beforeValidate(){
+    	//用户名大写
+    	name = name?.trim()?.toUpperCase()
+    }    
+
+    
     String toString(){
     	return "${name}"
     }

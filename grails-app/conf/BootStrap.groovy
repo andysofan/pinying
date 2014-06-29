@@ -14,6 +14,7 @@ class BootStrap {
 			adminUserInstance = new User(
 				  username: "leaf@pinying"
 				, fullname : "leaf@pinying"
+				, email:"leaf.shi@cyberoller.com"
 				, passwordHash: new Sha512Hash("12345678", salt).toHex()
 				, passwordSalt:salt
 				, errortimes : 0
@@ -29,6 +30,18 @@ class BootStrap {
 			, description:"角色-开发者：拥有所有权限"
 			).addToPermissions("*:*")
 			.addToUsers(adminUserInstance)
+			.save(flush:true);
+		}
+		//角色
+		def userRoleInstance = Role.findByName("user".trim().toUpperCase())
+		if(!userRoleInstance){
+			userRoleInstance = new Role(
+			  name:"user"
+			, description:"角色-用户：拥有pinying, favority, product所有的权限"
+			)
+			.addToPermissions("pinying:*")
+			.addToPermissions("favorite:*")
+			.addToPermissions("product:*")
 			.save(flush:true);
 		}
     	//def brandExtInstance = new BrandExt(id:1, desc:"ext").save(flush:true)

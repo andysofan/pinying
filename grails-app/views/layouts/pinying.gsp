@@ -172,7 +172,7 @@
 					</shiro:isLoggedIn>
 					<shiro:isNotLoggedIn>
 						<a id="login" href="${createLink(controller:'auth')}">登录</a>
-						<a id="register" href="register.html">注册</a>
+						<a id="register" href="${createLink(controller:'auth', action:'register')}">注册</a>
 					</shiro:isNotLoggedIn>
                 </div>
             </div>

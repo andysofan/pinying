@@ -8,6 +8,8 @@ class User {
     String username
 	//全称
     String fullname
+    //邮箱
+    String email
 	//密码
     String passwordHash
 	//盐
@@ -32,6 +34,7 @@ class User {
     static constraints = {
 		username(nullable:false, blank:false, unique:true, maxSize:20)
         fullname(nullable:false, blank:false, maxSize:35)
+        email(nullable:false, blank:false, maxSize:100)
         passwordHash(nullable:true, blank:false, maxSize : 512)
         passwordSalt(nullable:true, blank:false, maxSize : 64)
         errortimes(nullable:false, range:0..3)

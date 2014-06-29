@@ -7,6 +7,8 @@ import org.apache.shiro.web.util.SavedRequest
 import org.apache.shiro.web.util.WebUtils
 
 class AuthController {
+
+	def userService
     def shiroSecurityManager
     
 	def beforeInterceptor = {
@@ -100,6 +102,20 @@ class AuthController {
 
         // For now, redirect back to the home page.
         redirect(uri: "/")
+    }
+    
+    def register(){
+		render view:"/shiro/auth/register"
+    }
+    def submitRegister(){
+    	try{
+			userService.register(params)
+			
+			chain action : "signIn", params:[username:params?.username, password:params?.password]
+    	}catch(e){
+    		flash.message = e.getMessage()
+    		render view:"/shiro/auth/register", model:[params:params]
+    	}
     }
 
     def unauthorized = {

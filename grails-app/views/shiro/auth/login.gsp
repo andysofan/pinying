@@ -9,19 +9,15 @@
 	</title>
 </head>
 <body>
-
-	<g:if test="${flash.message}">
-		<div class="message">
-			<g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"/>
-		</div>
-	</g:if>
-
 	<div id="loginPanel">
 		<div class="title clearFix">
 			<label class="fl">登 录</label>
-			<label class="reg fr">还没有帐号？<a href="register.html">马上注册 &gt;&gt;</a></label>
+			<label class="reg fr">还没有帐号？<a href="${createLink(controller:'auth', action:'register')}">马上注册 &gt;&gt;</a></label>
 		</div>
 		<div class="content">
+			<g:if test="${flash.message}">
+				<div class="message" role="status">${flash.message}</div>
+			</g:if>
 			<g:form action="signIn">
 				<table width="970" border="0" cellspacing="0" cellpadding="0">
 					<tbody>
