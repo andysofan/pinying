@@ -4,7 +4,6 @@
  */
 class SecurityFilters {
     def filters = {
-		log.info "******************SecurityFilters"
 		/*登录，退出*/
 		auth(controller: "auth", action: "*"){
 			before={
@@ -15,7 +14,7 @@ class SecurityFilters {
 		/*其它*/
 		all(controller: "*", action: "*"){
 			before={
-				if (controllerName != 'pinying'){//主页
+				if (!(controllerName == 'pinying' || controllerName == 'about')){//主页
 					accessControl{
 						permission("${controllerName}:${actionName}:${params.id}")
 					}
