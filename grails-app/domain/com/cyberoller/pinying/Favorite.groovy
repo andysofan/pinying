@@ -1,6 +1,5 @@
 package com.cyberoller.pinying
 
-import com.szmallecar.domain.product.ProductGoods
 import com.cyberoller.pinying.shiro.User
 
 class Favorite {
@@ -19,6 +18,6 @@ class Favorite {
     }
     
     static mapping = {
-    	table "pinying_favorite"
+    	table "x_favorite"
     }
 }
