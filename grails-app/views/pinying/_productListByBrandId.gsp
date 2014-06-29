@@ -24,7 +24,7 @@
 	
 	<div class="pagelist mt10 clearFix">
 		<div class="fr">
-			<g:paginate total="${productInstanceCount?:0}" offset="0" max="8" params="[brandId:params?.brandId, max:params?.max?:8, offset:params?.offset?:0,sort:'quantity', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name]" />
+			<g:paginate total="${productInstanceCount?:0}" offset="0" max="8" params="[brandId:params?.brandId, offset:params?.offset?:0,sort:sort, order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name]" />
 		</div>
 	</div>
 </div>

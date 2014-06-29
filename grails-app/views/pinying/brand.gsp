@@ -3,9 +3,9 @@
 <head>
 	<meta name="layout" content="pinying"/>
 	<title>品牌专区~Best Gift</title>
-<g:set var="order" value="${params?.order?:'asc'}"/>
-<g:set var="order" value="${(order == 'asc')?'desc':'asc'}"/>
-<g:set var="sort" value="${params?.sort?:'quantity'}"/>
+	<g:set var="order" value="${params?.order?:'asc'}"/>
+	<g:set var="order" value="${(order == 'asc')?'desc':'asc'}"/>
+	<g:set var="sort" value="${params?.sort?:'xquantity'}"/>
 	<script type="text/javascript">
 		function search(){
 			var s_marketMinPrice = $("#s_marketMinPrice").val().replace(/\r\n/g, "");
@@ -18,7 +18,7 @@
 				s_name = (s_name == '请输入关键字')?'':s_name;
 
 
-			var href="<g:createLink action='brand' params='[brandId:params?.brandId, max:params?.max?:8, offset:params?.offset?:0,sort:sort, order:order]' />";
+			var href="<g:createLink controller='index' action='brand' params='[brandId:params?.brandId, offset:params?.offset?:0,sort:sort, order:order]' />";
 				href+="&marketMinPrice=" + s_marketMinPrice;
 				href+="&marketMaxPrice=" + s_marketMaxPrice;
 				href+="&name=" + s_name;
@@ -38,19 +38,25 @@
 			<div class="hline fl"></div>
 			<label class="fl">默认排序：</label>
 			<ul class="fl phList">
-				<li class="${sort == 'quantity'?'arrl':''}">
-					<a href="<g:createLink action='brand' params='[brandId:params?.brandId, max:params?.max?:8, offset:params?.offset?:0,sort:'quantity', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name ]' />" title="">
+				<li class="${sort == 'xquantity'?'arrl':''}">
+					<a href="<g:createLink controller='index' action='brand' params='[brandId:params?.brandId, offset:params?.offset?:0,sort:'xquantity', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name ]' />" title="">
 						销量<em class="spriteicon ${(order == 'asc')?'up':'down'}"></em>
 					</a>
 				</li>
-				<li class="${sort == 'popularity'?'arrl':''}">
-					<a href="<g:createLink action='brand' params='[brandId:params?.brandId, max:params?.max?:8, offset:params?.offset?:0,sort:'popularity', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name]' />" title="">人气<em class="spriteicon ${(order == 'asc')?'down':'up'}"></em></a>
+				<li class="${sort == 'xpopularity'?'arrl':''}">
+					<a href="<g:createLink controller='index' action='brand' params='[brandId:params?.brandId, offset:params?.offset?:0,sort:'xpopularity', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name]' />" title="">
+						人气<em class="spriteicon ${(order == 'asc')?'down':'up'}"></em>
+					</a>
 				</li>
 				<li class="${sort == 'dateCreated'?'arrl':''}">
-					<a href="<g:createLink action='brand' params='[brandId:params?.brandId, max:params?.max?:8, offset:params?.offset?:0,sort:'dateCreated', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name]' />" title="">最新<em class="spriteicon ${(order == 'asc')?'down':'up'}"></em></a>
+					<a href="<g:createLink controller='index' action='brand' params='[brandId:params?.brandId, offset:params?.offset?:0,sort:'dateCreated', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name]' />" title="">
+						最新<em class="spriteicon ${(order == 'asc')?'down':'up'}"></em>
+					</a>
 				</li>
-				<li class="${sort == 'marketMinPrice'?'arrl':''}">
-					<a href="<g:createLink action='brand' params='[brandId:params?.brandId, max:params?.max?:8, offset:params?.offset?:0,sort:'marketMinPrice', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name]' />" title="">总价<em class="spriteicon ${(order == 'asc')?'down':'up'}"></em></a>
+				<li class="${sort == 'xprice'?'arrl':''}">
+					<a href="<g:createLink controller='index' action='brand' params='[brandId:params?.brandId, offset:params?.offset?:0,sort:'xprice', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name]' />" title="">
+						总价<em class="spriteicon ${(order == 'asc')?'down':'up'}"></em>
+					</a>
 				</li>
 			</ul>
 			<div class="fm-price fl">
