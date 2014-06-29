@@ -5,7 +5,7 @@
 	<title>品牌专区~Best Gift</title>
 	<g:set var="order" value="${params?.order?:'asc'}"/>
 	<g:set var="order" value="${(order == 'asc')?'desc':'asc'}"/>
-	<g:set var="sort" value="${params?.sort?:'xquantity'}"/>
+	<g:set var="sort" value="${params?.sort}"/>
 	<script type="text/javascript">
 		function search(){
 			var s_marketMinPrice = $("#s_marketMinPrice").val().replace(/\r\n/g, "");
