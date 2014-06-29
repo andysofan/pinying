@@ -157,7 +157,7 @@
          <div class="hearder">
          	<div class="tophd clearFix">
             	<div class="fl">
-                	<a href="${createLink(action:'index')}" title="">
+                	<a href="${createLink(controller:'index', action:'index')}" title="">
                     	<img src="${resource(dir:'images/pinying/images', file:'pylogo.png')}" alt="logo" width="200" height="50" />
                     </a>
                 </div>
@@ -178,17 +178,17 @@
                 <ul class="nav fl">
                 	<!-- 首页 -->
                     <li class="first">
-                        <a href="${createLink( controller:'pinying', action:'index')}" title="首页" class="home i1">首页</a>
+                        <a href="${createLink( controller:'index', action:'index')}" title="首页" class="home i1">首页</a>
                     </li>
                     <!-- 品牌专区 -->
                     <li class="navi0 navi02">
-                        <a href="${createLink(action:'brand', params:[brandId:-1])}" title="" class="i1">品牌专区</a>
+                        <a href="${createLink(controller:'index', action:'brand', params:[brandId:-1])}" title="" class="i1">品牌专区</a>
                         <div class="naviHover" style="display:none;">
 							<g:include controller="pinying" action="menuBrandList" />
                         </div>
                     </li>
                     <!-- 分类菜单 -->
-                   	<g:include controller="pinying" action="menuFirstLevelCategory" />
+                   	<g:include controller="index" action="menuFirstLevelCategory" />
                     <!-- 其他 -->
                     <li class="navi0">
                         <a href="#" title="" class="i1">其他</a>
