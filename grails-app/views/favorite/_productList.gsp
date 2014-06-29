@@ -1,6 +1,9 @@
 <g:if test="${productInstanceList}">
 <div class="piIconbg">
 	<ul class="clearFix">
+		<div class="clearFix" id="page_list">
+			<a class="fr spriteicon" id="batch_export_button" href="#">批量导出</a>
+		</div>
 	<g:each in="${productInstanceList}" status="i" var="productInstance">
 		<li>
 			<div class="pimg pr">
@@ -17,6 +20,7 @@
 			<a class="add" href="javascript:void(0)" onclick="return toggleFavorite(this, ${productInstance.id})" title="">
 				<g:include controller="favorite" action="isFavorite" params="[productId:productInstance.id]" />
 			</a>
+			<a class="alone_export" href="#">导出</a>
 			</shiro:isLoggedIn>
 		</li>
 	</g:each>
