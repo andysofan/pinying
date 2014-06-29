@@ -1,14 +1,10 @@
-/*品迎*/
-
-package com.szmallecar.service
+package com.cyberoller.pinying
 
 import org.hibernate.criterion.CriteriaSpecification
 
 import org.springframework.transaction.annotation.Transactional
 
-import com.szmallecar.domain.product.*
-
-class PinyingService {
+class IndexService {
 	
 	static transactional = true
 	
@@ -20,9 +16,9 @@ class PinyingService {
 			brandInstanceList = Brand.withCriteria {
 				projections{
 					property("id", "id")
-					property("name", "name")
+					property("xname", "name")
 				}
-				order("orderIndex", "asc")
+				order("xorderIndex", "asc")
 				resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
 			}
 			
@@ -40,10 +36,10 @@ class PinyingService {
 			categoryInstanceList = ProductCategory.withCriteria {
 				projections{
 					property("id", "id")
-					property("name", "name")
+					property("xname", "name")
 				}
-				eq("level", 0)
-				order("orderIndex", "asc")
+				eq("xlevel", 0)
+				order("xorderIndex", "asc")
 				resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
 			}
 		}catch(e){
@@ -60,12 +56,12 @@ class PinyingService {
 				createAlias "parent", "parent"
 				projections{
 					property("id", "id")
-					property("name", "name")
+					property("xname", "name")
 				}
 				join("parent")
-				eq("level", 1)
+				eq("xlevel", 1)
 				eq("parent.id", parentId)
-				order("orderIndex", "asc")
+				order("xorderIndex", "asc")
 				resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
 			}
 		}catch(e){
@@ -81,14 +77,13 @@ class PinyingService {
 			productInstanceList = ProductGoods.withCriteria {
 				projections{
 					property("id", "id")
-					property("name", "name")
-					property("thumbnail", "thumbnail")
-					property("marketMinPrice", "marketMinPrice")
-					property("marketMaxPrice", "marketMaxPrice")
+					property("xname", "name")
+					property("xthumbnail", "thumbnail")
+					property("xprice", "price")
 				}
-				eq("recommend", true)
-				eq("status", 1)
-				order("orderIndex", "asc")
+				eq("xrecommend", true)
+				eq("xstatus", 1)
+				order("xorderIndex", "asc")
 				maxResults(4)
 				resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
 			}
@@ -105,14 +100,13 @@ class PinyingService {
 			hotestProductInstance = ProductGoods.withCriteria(uniqueResult:true) {
 				projections{
 					property("id", "id")
-					property("name", "name")
-					property("thumbnail", "thumbnail")
-					property("marketMinPrice", "marketMinPrice")
-					property("marketMaxPrice", "marketMaxPrice")
+					property("xname", "name")
+					property("xthumbnail", "thumbnail")
+					property("xprice", "price")
 				}
-				eq("ishot", true)
-				eq("status", 1)
-				order("orderIndex", "asc")
+				eq("xishot", true)
+				eq("xstatus", 1)
+				order("xorderIndex", "asc")
 				maxResults(1)
 				resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
 			}
@@ -129,13 +123,12 @@ class PinyingService {
 			popularProductInstanceList = ProductGoods.withCriteria() {
 				projections{
 					property("id", "id")
-					property("name", "name")
-					property("thumbnail", "thumbnail")
-					property("marketMinPrice", "marketMinPrice")
-					property("marketMaxPrice", "marketMaxPrice")
+					property("xname", "name")
+					property("xthumbnail", "thumbnail")
+					property("xprice", "price")
 				}
-				eq("status", 1)
-				order("popularity", "desc")
+				eq("xstatus", 1)
+				order("xpopularity", "desc")
 				maxResults(8)
 				resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
 			}
@@ -152,10 +145,9 @@ class PinyingService {
 			productInstanceList = ProductGoods.withCriteria() {
 				projections{
 					property("id", "id")
-					property("name", "name")
-					property("thumbnail", "thumbnail")
-					property("marketMinPrice", "marketMinPrice")
-					property("marketMaxPrice", "marketMaxPrice")
+					property("xname", "name")
+					property("xthumbnail", "thumbnail")
+					property("xprice", "price")
 				}
 				
 				if(brandId > 0){
@@ -164,36 +156,27 @@ class PinyingService {
 					isNotNull("brand.id")
 				}
 				
-				eq("status", 1)
+				eq("xstatus", 1)
 				//名称
 				if(params?.name){
-					ilike("name", "%${params?.name}%")
+					ilike("xname", "%${params?.name}%")
 				}
 				//价格区间
 				if(params?.marketMinPrice && params?.marketMaxPrice){
-					or{
-						between("marketMinPrice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
-						between("marketMaxPrice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
-					}
+					between("xprice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
 				}else{
 					if(params?.marketMinPrice){
-						or{
-							ge("marketMinPrice", params.int('marketMinPrice').toDouble())
-							ge("marketMaxPrice", params.int('marketMinPrice').toDouble())
-						}
+						ge("xprice", params.int('marketMinPrice').toDouble())
 					}
 					if(params?.marketMaxPrice){
-						or{
-							le("marketMinPrice", params.int('marketMaxPrice').toDouble())
-							le("marketMaxPrice", params.int('marketMaxPrice').toDouble())
-						}
+						le("xprice", params.int('marketMaxPrice').toDouble())
 					}
 				}
 
 				if(params?.order && params?.sort){
 					order(params?.sort, params?.order)
 				}else{
-					order("orderIndex", "desc")
+					order("xorderIndex", "desc")
 				}
 
 				if(params?.offset) firstResult(params.int('offset'))
@@ -221,26 +204,17 @@ class PinyingService {
 				eq("status", 1)
 				//名称
 				if(params?.name){
-					ilike("name", "%${params?.name}%")
+					ilike("xname", "%${params?.name}%")
 				}
 				//价格区间
 				if(params?.marketMinPrice && params?.marketMaxPrice){
-					or{
-						between("marketMinPrice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
-						between("marketMaxPrice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
-					}
+					between("xprice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
 				}else{
 					if(params?.marketMinPrice){
-						or{
-							ge("marketMinPrice", params.int('marketMinPrice').toDouble())
-							ge("marketMaxPrice", params.int('marketMinPrice').toDouble())
-						}
+						ge("xprice", params.int('marketMinPrice').toDouble())
 					}
 					if(params?.marketMaxPrice){
-						or{
-							le("marketMinPrice", params.int('marketMaxPrice').toDouble())
-							le("marketMaxPrice", params.int('marketMaxPrice').toDouble())
-						}
+						le("xprice", params.int('marketMaxPrice').toDouble())
 					}
 				}
 			}
@@ -260,7 +234,7 @@ class PinyingService {
 		try{
 			categoryName = ProductCategory.withCriteria(uniqueResult:true) {
 				projections{
-					property("name")
+					property("xname")
 				}
 				eq("id", categoryId)
 			}
@@ -276,7 +250,7 @@ class PinyingService {
 		try{
 			brandName = Brand.withCriteria(uniqueResult:true) {
 				projections{
-					property("name")
+					property("xname")
 				}
 				eq("id", brandId)
 			}
@@ -310,7 +284,7 @@ class PinyingService {
 				if(params?.subCategoryId){
 					eq("category.id", params.int('subCategoryId'))
 				}
-				order("orderIndex", "asc")
+				order("xorderIndex", "asc")
 				resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
 			}
 			log.info "**********brandInstanceList=${brandInstanceList}"
@@ -328,11 +302,11 @@ class PinyingService {
 				createAlias "parent", "parent"
 				projections{
 					groupProperty("id","id")
-					groupProperty("name","name")
+					groupProperty("xname","name")
 				}
 				join("parent")
 				eq("parent.id", parentCategoryId)
-				order("orderIndex", "asc")
+				order("xorderIndex", "asc")
 				resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
 			}
 		}catch(e){
@@ -350,11 +324,11 @@ class PinyingService {
 				createAlias "brand", "brand"
 				projections{
 					property("brand.id","id")
-					groupProperty("brand.name","name")
+					groupProperty("brand.xname","name")
 				}
 				join("brand")
 				eq("category.id", categoryId)
-				order("orderIndex", "asc")
+				order("xorderIndex", "asc")
 				resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
 			}
 		}catch(e){
@@ -381,10 +355,9 @@ class PinyingService {
 			productInstanceList = ProductGoods.withCriteria() {
 				projections{
 					property("id", "id")
-					property("name", "name")
-					property("thumbnail", "thumbnail")
-					property("marketMinPrice", "marketMinPrice")
-					property("marketMaxPrice", "marketMaxPrice")
+					property("xname", "name")
+					property("xthumbnail", "thumbnail")
+					property("xprice", "price")
 				}
 				//已启用
 				eq("status", 1)
@@ -401,33 +374,24 @@ class PinyingService {
 				}
 				//名称
 				if(params?.name){
-					ilike("name", "%${params?.name}%")
+					ilike("xname", "%${params?.name}%")
 				}
 				//价格区间
 				if(params?.marketMinPrice && params?.marketMaxPrice){
-					or{
-						between("marketMinPrice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
-						between("marketMaxPrice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
-					}
+					between("xprice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
 				}else{
 					if(params?.marketMinPrice){
-						or{
-							ge("marketMinPrice", params.int('marketMinPrice').toDouble())
-							ge("marketMaxPrice", params.int('marketMinPrice').toDouble())
-						}
+						ge("xprice", params.int('marketMinPrice').toDouble())
 					}
 					if(params?.marketMaxPrice){
-						or{
-							le("marketMinPrice", params.int('marketMaxPrice').toDouble())
-							le("marketMaxPrice", params.int('marketMaxPrice').toDouble())
-						}
+						le("xprice", params.int('marketMaxPrice').toDouble())
 					}
 				}
 				//排序
 				if(params?.order && params?.sort){
 					order(params?.sort, params?.order)
 				}else{
-					order("orderIndex", "desc")
+					order("xorderIndex", "desc")
 				}
 				//偏移量
 				if(params?.offset) firstResult(params.int('offset'))
@@ -460,7 +424,7 @@ class PinyingService {
 					count()
 				}
 				//已启用
-				eq("status", 1)
+				eq("xstatus", 1)
 				
 				//产品分类
 				inList("category.id", subCategoryInstanceList)
@@ -474,26 +438,17 @@ class PinyingService {
 				}
 				//名称
 				if(params?.name){
-					ilike("name", "%${params?.name}%")
+					ilike("xname", "%${params?.name}%")
 				}
 				//价格区间
 				if(params?.marketMinPrice && params?.marketMaxPrice){
-					or{
-						between("marketMinPrice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
-						between("marketMaxPrice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
-					}
+					between("xprice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
 				}else{
 					if(params?.marketMinPrice){
-						or{
-							ge("marketMinPrice", params.int('marketMinPrice').toDouble())
-							ge("marketMaxPrice", params.int('marketMinPrice').toDouble())
-						}
+						ge("xprice", params.int('marketMinPrice').toDouble())
 					}
 					if(params?.marketMaxPrice){
-						or{
-							le("marketMinPrice", params.int('marketMaxPrice').toDouble())
-							le("marketMaxPrice", params.int('marketMaxPrice').toDouble())
-						}
+						le("xprice", params.int('marketMaxPrice').toDouble())
 					}
 				}
 			}

@@ -1,12 +1,8 @@
-/*品迎*/
+package com.cyberoller.pinying
 
-package com.szmallecar.controller
+class IndexController {
 
-import com.szmallecar.service.PinyingService
-
-class PinyingController {
-
-	def pinyingService
+	def indexService
 
 	def index() {
 		log.info "**********index"
@@ -17,7 +13,7 @@ class PinyingController {
 	def menuBrandList(){
 		log.info "**********menuBrandList"
 		try{
-			def menuBrandList = pinyingService.menuBrandList()
+			def menuBrandList = indexService.menuBrandList()
 			render template : "/pinying/menuBrandList", model : [menuBrandList:menuBrandList]
 		}catch(e){
 			flash.message = e.getMessage()
@@ -28,7 +24,7 @@ class PinyingController {
 	def menuFirstLevelCategory(){
 		log.info "**********menuFirstLevelCategory"
 		try{
-			def firstLevelCategoryInstanceList = pinyingService.menuFirstLevelCategory()
+			def firstLevelCategoryInstanceList = indexService.menuFirstLevelCategory()
 			render template : "/pinying/menuFirstLevelCategory", model : [firstLevelCategoryInstanceList:firstLevelCategoryInstanceList]
 		}catch(e){
 			flash.message = e.getMessage()
@@ -39,7 +35,7 @@ class PinyingController {
 	def menuSecondLevelCategory(Integer categoryId){
 		log.info "**********menuSecondLevelCategory=${categoryId}"
 		try{
-			def secondLevelCategoryInstanceList = pinyingService.menuSecondLevelCategory(categoryId)
+			def secondLevelCategoryInstanceList = indexService.menuSecondLevelCategory(categoryId)
 			render template : "/pinying/menuSecondLevelCategory", model : [secondLevelCategoryInstanceList:secondLevelCategoryInstanceList]
 		}catch(e){
 			flash.message = e.getMessage()
@@ -50,7 +46,7 @@ class PinyingController {
 	def recommendProductList(){
 		log.info "**********recommendProductList"
 		try{
-			def recommendProductList = pinyingService.recommendProductList()
+			def recommendProductList = indexService.recommendProductList()
 			render template : "/pinying/recommendProductList", model : [recommendProductList:recommendProductList]
 		}catch(e){
 			flash.message = e.getMessage()
@@ -61,7 +57,7 @@ class PinyingController {
 	def hotestProduct(){
 		log.info "**********hotestProduct"
 		try{
-			def hotestProductInstance = pinyingService.hotestProduct()
+			def hotestProductInstance = indexService.hotestProduct()
 			render template : "/pinying/hotestProductList", model : [hotestProductInstance:hotestProductInstance]
 		}catch(e){
 			flash.message = e.getMessage()
@@ -72,7 +68,7 @@ class PinyingController {
 	def popularProductList(){
 		log.info "**********popularProductList"
 		try{
-			def popularProductList = pinyingService.popularProductList()
+			def popularProductList = indexService.popularProductList()
 			render template : "/pinying/popularProductList", model : [popularProductList:popularProductList]
 		}catch(e){
 			flash.message = e.getMessage()
@@ -83,8 +79,8 @@ class PinyingController {
 	def brand (Integer brandId)  {
 		log.info "**********brand:${brandId}"
 		try{
-			def productInstanceList = pinyingService.getProductListByBrandId(brandId, params)
-			def productInstanceCount = pinyingService.getProductCountByBrandId(brandId, params)
+			def productInstanceList = indexService.getProductListByBrandId(brandId, params)
+			def productInstanceCount = indexService.getProductCountByBrandId(brandId, params)
 			render view : "/pinying/brand", model : [productInstanceList:productInstanceList, productInstanceCount:productInstanceCount]
 		}catch(e){
 			flash.message = e.getMessage()
@@ -96,9 +92,9 @@ class PinyingController {
 		log.info "**********category:${id}"
 		try{
 			//取标题
-			def title = pinyingService.getCategoryName(id)
-			def productInstanceList = pinyingService.getProductListByCateogryId(id, params)
-			def productInstanceCount = pinyingService.getProductCountByCateogryId(id, params)
+			def title = indexService.getCategoryName(id)
+			def productInstanceList = indexService.getProductListByCateogryId(id, params)
+			def productInstanceCount = indexService.getProductCountByCateogryId(id, params)
 			render view : "/pinying/category", model : [title:title, productInstanceList:productInstanceList, productInstanceCount:productInstanceCount]
 		}catch(e){
 			flash.message = e.getMessage()
@@ -111,7 +107,7 @@ class PinyingController {
 		def result = ""
 		try{
 			//取标题
-			result = pinyingService.getCategoryName(categoryId)
+			result = indexService.getCategoryName(categoryId)
 		}catch(e){
 			result = e.getMessage()
 		}
@@ -123,7 +119,7 @@ class PinyingController {
 		def result = ""
 		try{
 			//取标题
-			result = pinyingService.getBrandName(brandId)
+			result = indexService.getBrandName(brandId)
 		}catch(e){
 			result = e.getMessage()
 		}
@@ -133,7 +129,7 @@ class PinyingController {
 	def getBrandListByParentCategoryId(Integer parentCategoryId){
 		log.info "**********getBrandListByParentCategoryId${parentCategoryId}"
 		try{
-			def brandListByParentCategoryId = pinyingService.getBrandListByParentCategoryId(parentCategoryId, params)
+			def brandListByParentCategoryId = indexService.getBrandListByParentCategoryId(parentCategoryId, params)
 			render template : "/pinying/brandListByParentCategoryId", model : [brandListByParentCategoryId:brandListByParentCategoryId]
 		}catch(e){
 			flash.message = e.getMessage()
@@ -144,7 +140,7 @@ class PinyingController {
 	def getCategoryListByParentCategoryId(Integer parentCategoryId){
 		log.info "**********getCategoryListByParentCategoryId:${parentCategoryId}"
 		try{
-			def categoryListByParentCategoryId = pinyingService.getCategoryListByParentCategoryId(parentCategoryId)
+			def categoryListByParentCategoryId = indexService.getCategoryListByParentCategoryId(parentCategoryId)
 			render template : "/pinying/categoryListByParentCategoryId", model : [categoryListByParentCategoryId:categoryListByParentCategoryId]
 		}catch(e){
 			flash.message = e.getMessage()
@@ -155,7 +151,7 @@ class PinyingController {
 	def getBrandListByCategoryId(Integer categoryId){
 		log.info "**********getBrandListByCategoryId:${categoryId}"
 		try{
-			def getBrandListByCategoryId = pinyingService.getBrandListByCategoryId(categoryId)
+			def getBrandListByCategoryId = indexService.getBrandListByCategoryId(categoryId)
 			render template : "/pinying/brandListByCategoryId", model : [getBrandListByCategoryId:getBrandListByCategoryId]
 		}catch(e){
 			flash.message = e.getMessage()
@@ -166,7 +162,7 @@ class PinyingController {
 	def getProductListByCateogryId(Integer categoryId, Integer offset){
 		log.info "**********getProductListByCateogryId:${categoryId},offset:${offset}"
 		try{
-			def getProductListByCateogryId = pinyingService.getProductListByCateogryId(categoryId, offset, params)
+			def getProductListByCateogryId = indexService.getProductListByCateogryId(categoryId, offset, params)
 			render template : "/pinying/productListByCateogryId", model : [getProductListByCateogryId:getProductListByCateogryId]
 		}catch(e){
 			flash.message = e.getMessage()

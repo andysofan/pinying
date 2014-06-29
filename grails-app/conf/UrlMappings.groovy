@@ -7,7 +7,7 @@ class UrlMappings {
             }
         }
 
-        "/"(controller:"pinying", action:"index")
+        "/"(controller:"index", action:"index")
         "500"(view:'/error')
 	}
 }
