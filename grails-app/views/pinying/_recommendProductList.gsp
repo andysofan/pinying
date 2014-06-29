@@ -6,7 +6,7 @@
 		</a>
 		<div class="price">
 			<p class="name">${productInstance?.name}</p>
-			<p class="num">¥${productInstance?.marketMinPrice} RMB </p>
+			<p class="num">¥${productInstance?.price} RMB </p>
 		</div>
 	</li>
 	</g:each>
