@@ -457,4 +457,22 @@ class IndexService {
 		}
 		return productInstanceCount
 	}
+	/************************************************************************************/
+	//获取产品信息
+	@Transactional(readOnly = true)
+	def getProductInstance(Long id){
+		log.info "**********getProductInstance:${id}"
+		def productInstance
+		try{
+			productInstance = ProductGoods.withCriteria(uniqueResult:true) {
+				eq("id", id)
+				//已启用
+				eq("xstatus", 1)
+			}
+			log.info "**********productInstance:${productInstance}"
+		}catch(e){
+			throw new RuntimeException("取产品实例错误:${e.getMessage()}")
+		}
+		return productInstance
+	}
 }

@@ -169,4 +169,15 @@ class IndexController {
 			render template : "/pinying/productListByCateogryId", model : [getProductListByCateogryId:null]
 		}
 	}
+	/************************************************************************************/
+	//获取产品信息
+	def product(Long id){
+		try{
+			def productInstance = indexService.getProductInstance(id)
+			render view : "/pinying/productInfo", model : [productInstance:productInstance]
+		}catch(e){
+			flash.message = e.getMessage()
+			render view : "/pinying/productInfo", model : [productInstance:null]
+		}	
+	}
 }
