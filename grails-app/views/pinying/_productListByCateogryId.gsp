@@ -4,7 +4,7 @@
 		<g:each in="${productInstanceList}" status="i" var="productInstance">
 		<li>
 			<div class="pimg pr">
-				<a href="#" title="">
+				<a href="${createLink(controller:'index', action:'product', id:productInstance.id)}" title="">
 					<img alt="" src="<g:resource dir="images/pinying/images" file="${productInstance.thumbnail}" />" width="151" height="154" />
 				</a>
 				<div class="pricelist spriteicon">
@@ -12,7 +12,7 @@
 					<p>RMB</p>
 				</div>
 			</div>
-			<p class="pitit"><a href="#" title="" class="bgcolor">${productInstance.name}</a></p>
+			<p class="pitit"><a href="${createLink(controller:'index', action:'product', id:productInstance.id)}" title="" class="bgcolor">${productInstance.name}</a></p>
 			<shiro:isLoggedIn>
 				<a class="add" href="javascript:void(0)" onclick="return toggleFavorite(this, ${productInstance.id})" title="">
 					<g:include controller="favorite" action="isFavorite" params="[productId:productInstance.id]" />
