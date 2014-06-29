@@ -12,7 +12,7 @@
 		</g:elseif>
 		<li class="${(i % 4 == 3)?'last':''}">
 			<p>
-				<a href="#" title="" class="prolistpic">
+				<a href="${createLink(controller:'index', action:'product', id:productInstance.id)}" title="" class="prolistpic">
 					<img alt="" src="<g:resource dir="images/pinying/images" file="${productInstance.thumbnail}" />" width="187" height="144" />
 				</a>
 			</p>
