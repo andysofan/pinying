@@ -277,12 +277,12 @@ class IndexService {
 				createAlias "brand", "brand"
 				projections{
 					groupProperty("brand.id","id")
-					groupProperty("brand.name","name")
+					groupProperty("brand.xname","name")
 				}
 				join("brand")
 				inList("category.id", categoryInstanceList)
 				if(params?.subCategoryId){
-					eq("category.id", params.int('subCategoryId'))
+					eq("category.id", params.int('subCategoryId').toLong())
 				}
 				order("xorderIndex", "asc")
 				resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
@@ -360,17 +360,17 @@ class IndexService {
 					property("xprice", "price")
 				}
 				//已启用
-				eq("status", 1)
+				eq("xstatus", 1)
 				
 				//产品分类
 				inList("category.id", subCategoryInstanceList)
 				if(params?.subCategoryId){
-					eq("category.id", params.int('subCategoryId'))
+					eq("category.id", params.int('subCategoryId').toLong())
 				}
 				
 				//品牌ID
 				if(params?.brandId){
-					eq("brand.id", params.int('brandId'))
+					eq("brand.id", params.int('brandId').toLong())
 				}
 				//名称
 				if(params?.name){
@@ -429,7 +429,7 @@ class IndexService {
 				//产品分类
 				inList("category.id", subCategoryInstanceList)
 				if(params?.subCategoryId){
-					eq("category.id", params.int('subCategoryId'))
+					eq("category.id", params.int('subCategoryId').toLong())
 				}
 				
 				//品牌ID
