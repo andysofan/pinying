@@ -5,7 +5,7 @@
 	<title>${title}~Best Gift</title>
 	<g:set var="order" value="${params?.order?:'asc'}"/>
 	<g:set var="order" value="${(order == 'asc')?'desc':'asc'}"/>
-	<g:set var="sort" value="${params?.sort?:'quantity'}"/>
+	<g:set var="sort" value="${params?.sort}"/>
 	<script type="text/javascript">
 		function search(){
 			var s_marketMinPrice = $("#s_marketMinPrice").val().replace(/\r\n/g, "");
@@ -18,7 +18,7 @@
 				s_name = (s_name == '请输入关键字')?'':s_name;
 
 
-			var href="<g:createLink action='category' id='${params?.id}' params='[subCategoryId:params?.subCategoryId, brandId:params?.brandId, offset:params?.offset?:0,sort:'quantity', order:order ]' />";
+			var href="<g:createLink controller='index' action='category' id='${params?.id}' params='[subCategoryId:params?.subCategoryId, brandId:params?.brandId, offset:params?.offset?:0,sort:sort, order:order ]' />";
 				href+="&marketMinPrice=" + s_marketMinPrice;
 				href+="&marketMaxPrice=" + s_marketMaxPrice;
 				href+="&name=" + s_name;
@@ -35,8 +35,8 @@
 				<ul class="fl">
 					<g:if test="${params?.subCategoryId}">
 						<li category="${params?.subCategoryId}">
-							<a href="${createLink(action:'category', id:params?.id)}" title="">
-								<g:include action="getCategoryName" params="[categoryId:params?.subCategoryId]" />
+							<a href="${createLink(controller:'index', action:'category', id:params?.id)}" title="">
+								<g:include controller="index" action="getCategoryName" params="[categoryId:params?.subCategoryId]" />
 								<em class="filter_cancel">X</em>
 							</a>
 						</li>
@@ -44,7 +44,7 @@
 					<g:if test="${params?.brandId}">
 						<li category="${params?.brandId}">
 							<a href="${createLink(action:'category', id:params?.id, params:[subCategoryId:params?.subCategoryId])}" title="">
-								<g:include action="getBrandName" params="[brandId:params?.brandId]" />
+								<g:include controller="index" action="getBrandName" params="[brandId:params?.brandId]" />
 								<em class="filter_cancel">X</em>
 							</a>
 						</li>
@@ -57,23 +57,23 @@
 		</div>
 		<div class="listSearch clearFix mt10 filter" id="c_1">
 			<label class="fl">分类</label>
-			<g:include action="getCategoryListByParentCategoryId" params="[parentCategoryId:params?.id, subCategoryId : params?.subCategoryId]" />
+			<g:include controller="index" action="getCategoryListByParentCategoryId" params="[parentCategoryId:params?.id, subCategoryId : params?.subCategoryId]" />
 		</div>
 		<div class="listSearch clearFix mt10 filter" id="c_2">
 			<label class="fl">品牌</label>
-			<g:include action="getBrandListByParentCategoryId" params="[parentCategoryId:params?.id, brandId:params?.brandId]" />
+			<g:include controller="index" action="getBrandListByParentCategoryId" params="[parentCategoryId:params?.id, brandId:params?.brandId]" />
 		</div>
 		<div class="listSearch clearFix mt10 filter" id="c_3">
 			<label class="fl">价格</label>
 			<ul class="fr">
 				<li>
-					<a href="${createLink(action:'category', id:params?.id, params:[subCategoryId:params?.subCategoryId, brandId:params?.brandId, marketMinPrice: 50,marketMaxPrice:100, name:params?.name, offset:params?.offset,sort:sort, order:order])}" title="">50-100</a>
+					<a href="${createLink(controller:'index', action:'category', id:params?.id, params:[subCategoryId:params?.subCategoryId, brandId:params?.brandId, marketMinPrice: 50,marketMaxPrice:100, name:params?.name, offset:params?.offset,sort:sort, order:order])}" title="">50-100</a>
 				</li>
 				<li>
-					<a href="${createLink(action:'category', id:params?.id, params:[subCategoryId:params?.subCategoryId, brandId:params?.brandId, marketMinPrice: 200,marketMaxPrice:300, name:params?.name, offset:params?.offset,sort:sort, order:order])}" title="">200-300</a>
+					<a href="${createLink(controller:'index', action:'category', id:params?.id, params:[subCategoryId:params?.subCategoryId, brandId:params?.brandId, marketMinPrice: 200,marketMaxPrice:300, name:params?.name, offset:params?.offset,sort:sort, order:order])}" title="">200-300</a>
 				</li>
 				<li>
-					<a href="${createLink(action:'category', id:params?.id, params:[subCategoryId:params?.subCategoryId, brandId:params?.brandId, marketMinPrice: 300,marketMaxPrice:400, name:params?.name, offset:params?.offset,sort:sort, order:order])}" title="">300-400</a>
+					<a href="${createLink(controller:'index', action:'category', id:params?.id, params:[subCategoryId:params?.subCategoryId, brandId:params?.brandId, marketMinPrice: 300,marketMaxPrice:400, name:params?.name, offset:params?.offset,sort:sort, order:order])}" title="">300-400</a>
 				</li>
 			</ul>
 		</div>
@@ -83,17 +83,25 @@
 			<div class="hline fl"></div>
 			<label class="fl">默认排序：</label>
 			<ul class="fl phList">
-				<li class="${sort == 'quantity'?'arrl':''}">
-					<a href="<g:createLink action='category' id='${params?.id}' params='[subCategoryId:params?.subCategoryId, brandId:params?.brandId, offset:params?.offset?:0,sort:'quantity', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name ]' />" title="">销量 <em class="spriteicon up"></em></a>
+				<li class="${sort == 'xquantity'?'arrl':''}">
+					<a href="<g:createLink controller='index' action='category' id='${params?.id}' params='[subCategoryId:params?.subCategoryId, brandId:params?.brandId, offset:params?.offset?:0,sort:'xquantity', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name ]' />" title="">
+						销量 <em class="spriteicon ${(order == 'asc')?'up':'down'}"></em>
+					</a>
 				</li>
-				<li class="${sort == 'popularity'?'arrl':''}">
-					<a href="<g:createLink action='category' id='${params?.id}' params='[subCategoryId:params?.subCategoryId, brandId:params?.brandId, offset:params?.offset?:0,sort:'popularity', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name ]' />" title="">人气 <em class="spriteicon down"></em></a>
+				<li class="${sort == 'xpopularity'?'arrl':''}">
+					<a href="<g:createLink controller='index' action='category' id='${params?.id}' params='[subCategoryId:params?.subCategoryId, brandId:params?.brandId, offset:params?.offset?:0,sort:'xpopularity', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name ]' />" title="">
+						人气 <em class="spriteicon ${(order == 'asc')?'down':'up'}"></em>
+					</a>
 				</li>
 				<li class="${sort == 'dateCreated'?'arrl':''}">
-					<a href="<g:createLink action='category' id='${params?.id}' params='[subCategoryId:params?.subCategoryId, brandId:params?.brandId, offset:params?.offset?:0,sort:'dateCreated', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name ]' />" title="">最新 <em class="spriteicon down"></em></a>
+					<a href="<g:createLink controller='index' action='category' id='${params?.id}' params='[subCategoryId:params?.subCategoryId, brandId:params?.brandId, offset:params?.offset?:0,sort:'dateCreated', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name ]' />" title="">
+						最新 <em class="spriteicon ${(order == 'asc')?'down':'up'}"></em>
+					</a>
 				</li>
-				<li class="${sort == 'marketMinPrice'?'arrl':''}">
-					<a href="<g:createLink action='category' id='${params?.id}' params='[subCategoryId:params?.subCategoryId, brandId:params?.brandId, offset:params?.offset?:0,sort:'marketMinPrice', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name ]' />" title="">总价 <em class="spriteicon down"></em></a>
+				<li class="${sort == 'xprice'?'arrl':''}">
+					<a href="<g:createLink controller='index' action='category' id='${params?.id}' params='[subCategoryId:params?.subCategoryId, brandId:params?.brandId, offset:params?.offset?:0,sort:'xprice', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name ]' />" title="">
+						总价 <em class="spriteicon ${(order == 'asc')?'down':'up'}"></em>
+					</a>
 				</li>
 			</ul>
 			<div class="fm-price fl">
