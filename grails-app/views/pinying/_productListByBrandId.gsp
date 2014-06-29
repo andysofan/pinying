@@ -8,7 +8,7 @@
 					<img alt="" src="<g:resource dir="images/pinying/images" file="${productInstance.thumbnail}" />" width="151" height="154" />
 				</a>
 				<div class="pricelist spriteicon">
-					<p class="mt10">￥${productInstance.marketMinPrice}</p>
+					<p class="mt10">￥${productInstance.price}</p>
 					<p>RMB</p>
 				</div>
 			</div>
