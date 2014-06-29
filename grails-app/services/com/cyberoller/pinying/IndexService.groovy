@@ -60,7 +60,7 @@ class IndexService {
 				}
 				join("parent")
 				eq("xlevel", 1)
-				eq("parent.id", parentId)
+				eq("parent.id", parentId.toLong())
 				order("xorderIndex", "asc")
 				resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
 			}
