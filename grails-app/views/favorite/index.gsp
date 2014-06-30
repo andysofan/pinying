@@ -79,11 +79,6 @@
 		</div>
 	</div>
 
-	<div class="searTop mt10">
-		<div class="banner mt5">
-			<img alt="" src="<g:resource dir="images/pinying/images/banner" file="banner08.jpg" />" width="760" height="115" />
-		</div>
-	</div>
 	<div class="mt10">
 		<div class="searMain clearFix">
 			<div class="hline fl"></div>
