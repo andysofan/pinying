@@ -17,6 +17,10 @@ class ProductCategory {
 		parent(nullable:true)
 	}
 	
+    String toString(){
+    	return "${xname}"
+    }
+	
 	static mapping = {
 		version	false
 		table 'x_product_category'

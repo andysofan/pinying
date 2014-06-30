@@ -12,6 +12,10 @@ class Brand {
 		xname(nullable:false,blank:false,unique:true, size:1..255)
     }
 
+    String toString(){
+    	return "${xname}"
+    }
+    
 	static mapping = {
 		cache		true
 		table		'x_brand'

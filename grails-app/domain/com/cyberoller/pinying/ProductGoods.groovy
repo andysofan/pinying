@@ -57,6 +57,10 @@ class ProductGoods {
 		xdesc(nullable:false)
     }
     
+    String toString(){
+    	return "${xname}"
+    }
+    
 	static mapping = {
 		table 'x_product_goods'
 	}
