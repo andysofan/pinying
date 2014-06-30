@@ -60,4 +60,34 @@ class FavoriteController {
 		}
 		render "${result}"	    
 	}
+	//收藏-导出产品列表****************************************************************
+	def export (Long id)  {
+		try{
+			def downName = System.currentTimeMillis()+"_${params?.id}.ppt"
+			response.setHeader("Content-disposition", "attachment; filename=" + downName)
+			response.contentType = "application/x-rarx-rar-compressed"
+			def realPath = request.getSession().getServletContext().getRealPath("/");
+			
+			def downFilePath = favoriteService.export(id,realPath,downName)
+			log.info "******************downFilePath=${downFilePath}"
+			if(downFilePath){
+				InputStream inputStream = new FileInputStream(downFilePath)
+				def out = response.outputStream
+				byte[] buffer = new byte[1024]
+				int i = -1
+				while ((i = inputStream.read(buffer)) != -1) {
+					out.write(buffer, 0, i)
+				}
+				out.flush()
+				out.close()
+				inputStream.close()
+				//删除临时文件
+				def tmpFile = new File(downFilePath)
+				tmpFile.delete();
+			}
+		}catch(e){
+			flash.message = e.getMessage()
+			redirect action:"index"
+		}
+	}
 }

@@ -9,6 +9,17 @@ import org.codehaus.groovy.grails.web.metaclass.BindDynamicMethod
 import org.apache.shiro.SecurityUtils
 import com.cyberoller.pinying.shiro.User
 
+//export
+import org.apache.poi.hslf.model.Picture
+import org.apache.poi.hslf.usermodel.RichTextRun
+import org.apache.poi.hslf.model.TextBox
+import org.apache.poi.hslf.model.TextRun
+import org.apache.poi.hslf.model.AutoShape
+import org.apache.poi.hslf.model.Slide
+import org.apache.poi.hslf.usermodel.SlideShow
+import org.apache.poi.hslf.model.ShapeTypes
+import java.awt.Color
+
 class FavoriteService {
 
 	static transactional = false
@@ -289,5 +300,108 @@ class FavoriteService {
 			throw new RuntimeException("收藏-取产品列表数据错误:${e.getMessage()}")
 		}
 		return productInstanceCount
+	}
+	//收藏-导出产品列表****************************************************************
+	def export (Long id, String realPath,String downName )  {
+		FileOutputStream out = null;
+		def downFile
+		try{
+			def downPath =  new File("${realPath}/exportTmp")
+
+				downFile = "${downPath}/${downName}"
+
+			def productInstanceList = ProductGoods.withCriteria(){
+				if(id){
+					eq("id", id)
+				}
+			}
+			if(!productInstanceList){
+				throw new RuntimeException("没有收藏")
+			}
+
+			if(!downPath.exists()){
+				downPath.mkdirs()//目录不存在则创建
+			}
+
+			SlideShow ppt = new SlideShow();
+			out = new FileOutputStream(downFile);
+			productInstanceList.each{productInstance ->
+					Slide slide1 = ppt.createSlide();
+					log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>添加商品名称文字开始>>>>>>>>>>>>>>>>>>>>>>>>>>");
+					// 创建并置入带有样式的文本  
+			        AutoShape _autoShape = new AutoShape(ShapeTypes.Rectangle); //设置形状  
+					// 创建并置入简单文本  
+			        TextRun _autoText = _autoShape.createTextRun();  
+			        // AutoShape 对象可以设置多个不同样式文本  
+			        RichTextRun rtGoodsName = _autoText.appendText("商品名称：${productInstance?.xname}\t");  
+					rtGoodsName.setFontColor(Color.red);  
+					rtGoodsName.setAlignment(TextBox.AlignLeft);
+					rtGoodsName.setFontSize(18);
+					rtGoodsName.setFontName("Arial");
+					rtGoodsName.setBold(true);
+					rtGoodsName.setItalic(true);
+					rtGoodsName.setUnderlined(true);
+				    
+					slide1.addShape(_autoShape);
+					
+					log.info("<<<<<<<<<<<<<<<<<<<<<<<<<<添加商品名称文字结束<<<<<<<<<<<<<<<<<<<<<<<<<<");
+					
+					log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>添加描述文字开始>>>>>>>>>>>>>>>>>>>>>>>>>>");
+					
+					if(productInstance?.xdesc){
+						TextBox txt = new TextBox();
+						txt.setText("商品描述：${productInstance?.xdesc}");
+						txt.setAnchor(new java.awt.Rectangle(150, 410, 430, 50));
+						RichTextRun rt = txt.getTextRun().getRichTextRuns()[0];
+						rt.setFontSize(18);
+						rt.setFontName("Arial");
+						rt.setBold(true);
+						rt.setItalic(true);
+						rt.setUnderlined(true);
+						rt.setFontColor(Color.red);
+						rt.setAlignment(TextBox.AlignLeft);
+						slide1.addShape(txt);
+					}
+					log.info("<<<<<<<<<<<<<<<<<<<<<<<<<<添加描述文字结束<<<<<<<<<<<<<<<<<<<<<<<<<<");
+					log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>添加图片开始>>>>>>>>>>>>>>>>>>>>>>>>>>");
+
+					File ximage1 = new File("${realPath}/images/pinying/images/${productInstance.ximage1}");
+					if(ximage1.exists()){
+						int idx = ppt.addPicture(ximage1, Picture.JPEG);
+						Picture pict = new Picture(idx);
+						pict.setAnchor(new java.awt.Rectangle(140, 30, 450, 317));
+						slide1.addShape(pict);
+					}
+					/*
+					File ximage2 = new File("${realPath}/images/pinying/images/${productInstance.ximage2}");
+					if(ximage2.exists()){
+						int idx = ppt.addPicture(ximage2, Picture.JPEG);
+						Picture pict = new Picture(idx);
+						pict.setAnchor(new java.awt.Rectangle(140, 30, 450, 317));
+						slide1.addShape(pict);
+					}
+					File ximage3 = new File("${realPath}/images/pinying/images/${productInstance.ximage3}");
+					if(ximage3.exists()){
+						int idx = ppt.addPicture(ximage3, Picture.JPEG);
+						Picture pict = new Picture(idx);
+						pict.setAnchor(new java.awt.Rectangle(140, 30, 450, 317));
+						slide1.addShape(pict);
+					}
+					*/
+					log.info("<<<<<<<<<<<<<<<<<<<<<<<<<<添加图片结束<<<<<<<<<<<<<<<<<<<<<<<<<<");
+			}
+			ppt.write(out);
+		}catch(e){
+			throw new RuntimeException("导出收藏错误:${e.getMessage()}")
+		}finally{
+			if(out!=null){
+				try {
+					out.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return downFile
 	}
 }
