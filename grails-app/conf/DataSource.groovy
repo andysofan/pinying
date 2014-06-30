@@ -30,7 +30,11 @@ environments {
     production {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
+			dialect = org.hibernate.dialect.MySQL5InnoDBDialect
+            url = "jdbc:mysql://192.168.3.246:3306/pinying?useUnicode=true&characterEncoding=UTF-8"
+			driverClassName = "com.mysql.jdbc.Driver"
+			username = "root"
+			password = "123456"
             properties {
                // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                jmxEnabled = true

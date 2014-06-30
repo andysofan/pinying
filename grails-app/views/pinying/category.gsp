@@ -105,9 +105,9 @@
 				</li>
 			</ul>
 			<div class="fm-price fl">
-				<input id="s_marketMinPrice" type="text" data-value="￥" class="txt fl inputFocus" value="${params?.marketMinPrice?:'￥'}" />
+				<input id="s_marketMinPrice" type="text" data-value="&yen;" class="txt fl inputFocus" value="${params?.marketMinPrice?:'&yen;'}" />
 				<span class="fl">-</span>
-				<input id="s_marketMaxPrice" type="text" data-value="￥" class="txt fl inputFocus" value="${params?.marketMaxPrice?:'￥'}" />
+				<input id="s_marketMaxPrice" type="text" data-value="&yen;" class="txt fl inputFocus" value="${params?.marketMaxPrice?:'&yen;'}" />
 				<span class="fl">|</span>
 				<input id="s_name" type="text" data-value="请输入关键字" class="keywords fl inputFocus" value="${params?.name}" />
 				<button type="button" class="i fl" onclick="search()">确定</button>
