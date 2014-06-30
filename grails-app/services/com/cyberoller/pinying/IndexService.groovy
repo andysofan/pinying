@@ -475,4 +475,28 @@ class IndexService {
 		}
 		return productInstance
 	}
+	/************************************************************************************/
+	//获取KV列表
+	@Transactional(readOnly = true)
+	def getKvList(){
+		log.info "**********getKvList"
+		def kvInstanceList
+		try{
+			kvInstanceList = Kv.withCriteria() {
+				projections{
+					property("ximage", "ximage")
+				}
+				//已启用
+				eq("xisActive", true)
+				isNotNull("ximage")
+				order("xorder", "asc")
+				maxResults(4)
+				resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
+			}
+			log.info "**********kvInstanceList=${kvInstanceList}"
+		}catch(e){
+			throw new RuntimeException("取KV列表错误:${e.getMessage()}")
+		}
+		return kvInstanceList
+	}
 }

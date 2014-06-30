@@ -13,12 +13,14 @@ navigation = {
 		role(controller:"role", action:"index", visible: loggedIn, order : 1100)
 		//用户
 		user(controller:"user", action:"index", visible: loggedIn, order : 1200)
-		//用户
+		//品牌
 		brand(controller:"brand", action:"index", visible: loggedIn, order : 1200)
-		//用户
+		//分类
 		productCategory(controller:"productCategory", action:"index", visible: loggedIn, order : 1200)
-		//用户
+		//产品
 		productGoods(controller:"productGoods", action:"index", visible: loggedIn, order : 1200)
+		//KV
+		kv(controller:"kv", action:"index", visible: loggedIn, order : 1200)
 		//退出
 		signOut(controller:"auth", action:"signOut", visible: loggedIn, order : 9999)
     }

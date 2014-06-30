@@ -124,6 +124,11 @@ class BootStrap {
 		new ProductCategoryBrand(category:productCategoryInstance0206, brand: brandInstance02).save(flush:true)
 		new ProductCategoryBrand(category:productCategoryInstance0207, brand: brandInstance02).save(flush:true)
 		*/
+		/*KV*******************************************************************************/
+		new Kv(xname:"1", ximage:"kv1.jpg", xorder:1, xdesc:"1", xisActive:true).save(flush:true)
+		new Kv(xname:"2", ximage:"kv2.jpg", xorder:1, xdesc:"1", xisActive:true).save(flush:true)
+		new Kv(xname:"3", ximage:"kv3.jpg", xorder:1, xdesc:"1", xisActive:true).save(flush:true)
+		new Kv(xname:"4", ximage:"kv4.jpg", xorder:1, xdesc:"1", xisActive:true).save(flush:true)
     }
     def destroy = {
     }

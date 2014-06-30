@@ -180,4 +180,15 @@ class IndexController {
 			render view : "/pinying/productInfo", model : [productInstance:null]
 		}	
 	}
+	/************************************************************************************/
+	//获取KV列表
+	def getKvList ()  {
+	    try{
+			def kvInstanceList = indexService.getKvList()
+			render template : "/pinying/kv", model : [kvInstanceList:kvInstanceList]
+		}catch(e){
+			flash.message = e.getMessage()
+			render template : "/pinying/kv", model : [kvInstanceList:null]
+		}	
+	}
 }
