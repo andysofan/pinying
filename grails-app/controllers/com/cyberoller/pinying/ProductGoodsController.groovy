@@ -129,7 +129,23 @@ class ProductGoodsController {
 			}
 			file.transferTo(xfile)
 
-			productInstance.xthumbnail = "${productId}thumbnail.${fileExtension}"
+			switch(params?.type){
+				case "xthumbnail":
+					productInstance.xthumbnail = "${productId}thumbnail.${fileExtension}"
+					break
+				case "ximage1":
+					productInstance.ximage1 = "${productId}ximage1.${fileExtension}"
+					break
+				case "ximage2":
+					productInstance.ximage2 = "${productId}ximage2.${fileExtension}"
+					break
+				case "ximage3":
+					productInstance.ximage3 = "${productId}ximage3.${fileExtension}"
+					break
+				default:
+					throw new RuntimeException("未知的类型:${params?.type}")
+					break
+			}
 			productInstance.save(flush:true)
 			redirect action:'show', id : productId
 		}catch(e){
