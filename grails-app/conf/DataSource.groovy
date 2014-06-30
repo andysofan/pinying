@@ -31,7 +31,7 @@ environments {
         dataSource {
             dbCreate = "update"
 			dialect = org.hibernate.dialect.MySQL5InnoDBDialect
-            url = "jdbc:mysql://192.168.3.246:3306/pinying?useUnicode=true&characterEncoding=UTF-8"
+            url = "jdbc:mysql://192.168.3.246:3306/pinying2?useUnicode=true&characterEncoding=UTF-8"
 			driverClassName = "com.mysql.jdbc.Driver"
 			username = "root"
 			password = "123456"
