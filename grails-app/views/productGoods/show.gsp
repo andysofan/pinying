@@ -213,6 +213,12 @@
 			<g:form url="[resource:productGoodsInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
 					<g:link class="edit" action="edit" resource="${productGoodsInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+
+					<g:link class="edit" action="upload" id="${productGoodsInstance?.id}" params="[type:'xthumbnail']" >上传缩微图</g:link>
+					<g:link class="edit" action="upload" id="${productGoodsInstance?.id}" params="[type:'ximage1']" >上传大图1</g:link>
+					<g:link class="edit" action="upload" id="${productGoodsInstance?.id}" params="[type:'ximage2']" >上传大图2</g:link>
+					<g:link class="edit" action="upload" id="${productGoodsInstance?.id}" params="[type:'ximage3']" >上传大图3</g:link>
+
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>

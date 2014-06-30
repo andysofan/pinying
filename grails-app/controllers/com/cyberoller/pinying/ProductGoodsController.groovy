@@ -101,4 +101,41 @@ class ProductGoodsController {
             '*'{ render status: NOT_FOUND }
         }
     }
+	//显示上传页
+	def upload ()  {
+		render view :"/productGoods/upload", params:[type:params?.type]
+	}
+
+	def uploadImage ()  {
+		try{
+			def file = request.getFile("file")
+			
+			if(file.isEmpty()){
+				throw new RuntimeException("空文件！")
+			}
+			String productId = params.int('id').toLong()
+			
+			def productInstance = ProductGoods.get(productId)
+
+			if(!productInstance){
+				throw new RuntimeException("未找到产品")
+			}
+
+			String applicationPath = request.getSession().getServletContext().getRealPath("")
+			def fileExtension = file.originalFilename.substring(file.originalFilename.lastIndexOf("."))
+			def xfile = new File("${applicationPath}/images/pinying/images/${productId}thumbnail.${fileExtension}")
+			if(!xfile.exists()){
+				xfile.mkdirs()//目录不存在则创建
+			}
+			file.transferTo(xfile)
+
+			productInstance.xthumbnail = "${productId}thumbnail.${fileExtension}"
+			productInstance.save(flush:true)
+			redirect action:'show', id : productId
+		}catch(e){
+			flash.message = e.getMessage()
+			render view :"/productGoods/upload", params:[id: params?.id, type:params?.type]
+		}
+		return
+	}
 }
