@@ -14,7 +14,7 @@ class SecurityFilters {
 		/*其它*/
 		all(controller: "*", action: "*"){
 			before={
-				if (!(controllerName == 'index' || controllerName == 'about')){//主页
+				if (!(controllerName == 'index' || controllerName == 'about' || controllerName == 'search')){//主页
 					accessControl{
 						permission("${controllerName}:${actionName}:${params.id}")
 					}

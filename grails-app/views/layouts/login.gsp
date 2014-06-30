@@ -150,6 +150,24 @@
 		}
 	</script>
 	</shiro:isLoggedIn>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#searchAll").bind('keydown',function(event){
+				if(event && event.keyCode==13){ // enter 键
+					//要做的事情
+					searchAll($("#searchAll").val())
+				}
+			}); 		
+		});
+		function searchAll(s){
+			var s_name = s.replace(/\r\n/g, "");
+				s_name = (s_name == '搜索')?'':s_name;
+				
+			var href="<g:createLink controller='search' action='index' params='[brandId:params?.brandId, offset:params?.offset?:0,sort:sort, order:order]' />";
+				href+="&name=" + s_name;
+			window.location.href = href;			
+		}
+	</script>
 	<g:layoutHead/>
 </head>
 <body>
@@ -220,8 +238,8 @@
             	<!-- nav end -->
             	<!-- Search start -->
                 <div class="fl search">
-                	<input type="text" value="" class="getFocus spriteicon" data-tip="搜索">
-                    <button class="iconSearch spriteicon" type="submit">查找</button>
+                	<input type="text" value="" class="getFocus spriteicon" data-tip="搜索" id="searchAll" />
+                    <button class="iconSearch spriteicon" type="button" >查找</button>
                 </div>
             	<!-- Search end -->
             </div>
