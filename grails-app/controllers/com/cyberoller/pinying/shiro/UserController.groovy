@@ -8,6 +8,8 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class UserController {
 
+	def userService
+
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
@@ -101,4 +103,136 @@ class UserController {
             '*'{ render status: NOT_FOUND }
         }
     }
+
+	/**
+	 * 重置密码
+	 **/
+	def resetPassword(Long id){
+        def userInstance = User.get( id )
+        if (!userInstance) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), username])
+            redirect(controller : "user", action: "index")
+            return
+        }
+		render view : '/user/resetPassword', model : [userInstance: userInstance]
+	}
+
+	/**
+	 * 重置密码
+	 **/
+    def reset(Long id, Long version){
+		def userInstance = User.get( id )
+        if (!userInstance) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), username])
+            redirect(controller : "user", action: "index")
+            return
+        }
+        
+		if (version != null) {
+            if (userInstance.version > version) {
+                userInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
+                          [message(code: 'user.label', default: 'User')] as Object[],
+                          "Another user has updated this User while you were editing")
+                redirect(controller : "user", action: "show", id: id)
+                return
+            }
+        }
+		try{
+			userService.resetPassword(userInstance, params.password, params.passwordConfirm)
+			flash.message = message(code: 'user.password.reset', args: [username])
+		}catch(e){
+			flash.message = e.getMessage()
+			render(view: "/user/resetPassword", model: [userInstance: userInstance])
+		}
+		redirect(controller : "user", action: "show", id : id)
+    }
+    
+	/**
+	 * 启用帐号
+	 **/
+    def activeUser(Long id, Long version){
+        def userInstance = User.get( id )
+        if (!userInstance) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), username])
+            redirect(action: "list")
+            return
+        }
+        
+		if (version != null) {
+            if (userInstance.version > version) {
+                userInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
+                          [message(code: 'user.label', default: 'User')] as Object[],
+                          "Another user has updated this User while you were editing")
+                redirect(action: "show", id : id)
+                return
+            }
+        }
+		
+		if (userService.activeUser(id) == true) {
+			flash.message = message(code: 'user.active.success', args: [userInstance?.username])
+			redirect(action: "show", id : id)
+		}
+		else {
+			flash.message = message(code: 'user.active.failed', args: [userInstance?.username])
+			redirect(action: "show", id : id)
+		}
+    }
+
+	/**
+	 * 停用帐号
+	 **/
+    def inActiveUser(Long id, Long version){
+        def userInstance = User.get( id )
+        if (!userInstance) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), username])
+            redirect(action: "list")
+            return
+        }
+        
+		if (version != null) {
+            if (userInstance.version > version) {
+                userInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
+                          [message(code: 'user.label', default: 'User')] as Object[],
+                          "Another user has updated this User while you were editing")
+                redirect(action: "show", id : id)
+                return
+            }
+        }
+		
+		if (userService.inActiveUser(id) == true) {
+			flash.message = message(code: 'user.inActive.success', args: [userInstance?.username])
+			redirect(action: "show", id : id)
+		}
+		else {
+			flash.message = message(code: 'user.inActive.failed', args: [userInstance?.username])
+			redirect(action: "show", id : id)
+		}
+    }
+
+	def unlockUser (Long id, Long version)  {
+		try{
+			def userInstance = User.get( id )
+			if (!userInstance) {
+				flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), username])
+				redirect(action: "list")
+				return
+			}
+			
+			if (version != null) {
+				if (userInstance.version > version) {
+					userInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
+							  [message(code: 'user.label', default: 'User')] as Object[],
+							  "Another user has updated this User while you were editing")
+					redirect(action: "show", id : id)
+					return
+				}
+			}
+			
+			userService.unlockUser(id)
+			flash.message = "解锁成功"
+		}catch(e){
+			flash.message = "解锁失败:${e.getMessage()}"
+		}
+		redirect(action: "show", id : id)
+	}
 }

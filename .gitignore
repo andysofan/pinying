@@ -3,3 +3,4 @@ target/work/plugin-build-classes/
 target/work/plugin-classes/
 target/work/resources/
 target/work/web.xml.tmp
+test/

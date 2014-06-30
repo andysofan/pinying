@@ -6,6 +6,27 @@
 		<meta name="layout" content="manager">
 		<g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
+
+		<script type="text/javascript">
+			//启用帐号
+			function activeUser(){
+				if(confirm("${message(code: 'custom.button.user.activeUser.confirm.message', default: 'Active User?')}")){
+					$.blockUI({fadeIn:0});
+					return true;
+				}else{
+					return false;
+				}
+			}
+			//停用帐号
+			function inactiveUser(){
+				if(confirm("${message(code: 'custom.button.user.inActiveUser.confirm.message', default: 'Inactive User?')}")){
+					$.blockUI({fadeIn:0});
+					return true;
+				}else{
+					return false;
+				}
+			}
+		</script>
 	</head>
 	<body>
 	
@@ -135,6 +156,25 @@
 			<g:form url="[resource:userInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
 					<g:link class="edit" action="edit" resource="${userInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+					<!--启用/停用帐号-->
+					<g:if test="${userInstance?.isActive == true}">
+						<g:link class="edit" action="inActiveUser" id="${userInstance?.id}" onclick="return inactiveUser()">
+							停用
+						</g:link>
+					</g:if>
+					<g:else>
+						<g:link class="edit" action="activeUser" id="${userInstance?.id}" onclick="return activeUser()">
+							启用
+						</g:link>
+					</g:else>
+					<g:link class="edit" action="resetPassword" id="${userInstance?.id}" >
+							修改密码
+					</g:link>
+					<g:if test="${userInstance?.isBlocked == true}">
+						<g:link class="edit" action="unlockUser" id="${userInstance?.id}" params="[version:userInstance?.version]">
+							解锁
+						</g:link>
+					</g:if>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>

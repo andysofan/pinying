@@ -5,6 +5,8 @@ import org.springframework.transaction.annotation.Transactional
 import org.apache.shiro.crypto.hash.Sha512Hash
 import org.apache.shiro.crypto.SecureRandomNumberGenerator
 
+import org.apache.shiro.SecurityUtils
+
 class UserService {
 
 	def messageSource
@@ -67,6 +69,86 @@ class UserService {
 				status.setRollbackOnly()
 				throw new RuntimeException("注册用户失败:${e.getMessage()}")
 			}
+    	}
+    }
+
+	/**
+	 * 重置密码
+	 */
+    def resetPassword(User userInstance, String password, String passwordConfirm) {
+		def result = false
+		User.withTransaction{ status ->
+			try{
+				if(password != null && !password.trim().equals('') && password.size() >= 8 && password.equals(passwordConfirm)){
+					//生成随机盐
+					String salt = new SecureRandomNumberGenerator().nextBytes().toHex()	 //随机生成盐
+					String passwordHash = new Sha512Hash(password, salt).toHex()//生成加密密码
+					
+					userInstance.passwordHash = passwordHash
+					userInstance.passwordSalt = salt
+
+					userInstance.save(flush:true)
+
+					result = true
+				}else{
+					userInstance.errors.reject(
+						'user.passwordHash.doesnotmatch',                                    // Error code within the grails-app/i18n/message.properties
+						[] as Object[],                          // Groovy list cast to Object[]
+						'[password does not match confirmation]')   // Default mapping string
+					result = false
+					throw new RuntimeException("user.passwordHash.doesnotmatch")
+				}
+			}catch(e){
+				result = false
+				status.setRollbackOnly()
+				throw new RuntimeException("${e.getMessage()}")
+			}
+		}
+		return result
+    }
+
+    /**
+     *启用帐号
+     **/
+    def activeUser(Long id){
+    	def result = false
+    	try{
+			def userInstance = User.get(id)
+				userInstance.isActive = true
+				userInstance.save(flush:true)
+				
+				result = true
+    	}catch(e){
+    		log.error "启用帐号${id}失败：${e.getMessage()}"
+    	}
+    	return result;
+    }
+    /**
+     *停用帐号
+     **/
+    def inActiveUser(Long id){
+    	def result = false
+    	try{
+			def userInstance = User.get(id)
+				userInstance.isActive = false
+				userInstance.save(flush:true)
+				
+				result = true
+    	}catch(e){
+    		log.error "停用帐号${id}失败：${e.getMessage()}"
+    	}
+    	return result;
+    }
+    /**
+     *解钔帐号
+     **/
+    def unlockUser(Long id){
+    	try{
+			def userInstance = User.get(id)
+				userInstance.isBlocked = false
+				userInstance.save(flush:true)
+    	}catch(e){
+    		log.error "解锁帐号${id}失败：${e.getMessage()}"
     	}
     }
 }
