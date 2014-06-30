@@ -73,7 +73,7 @@
 			<!-- header -->
 			<div class="header">
 				<div class="blank_line"></div>
-				<div class="global_title"><g:message code="global.app.name" default="XTEACH"/></div>
+				<div class="global_title"><g:message code="global.app.name" default="PinYing"/></div>
 				<div class="blank_line"></div>
 			</div>
 			<!-- end header -->
