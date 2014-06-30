@@ -109,6 +109,7 @@ class BootStrap {
 		def productInstance11 = new ProductGoods(xname:"景德镇陶瓷", xpackage:"package",xmaterial:"material", xsize:"size", xcolor:"color", xdesc:"desc", xorderIndex:11, xstatus:1, xthumbnail:"list7.jpg", xprice:270, xrecommend:true, xishot:true, xquantity:10, xpopularity:30, category:productCategoryInstance0101, brand:brandInstance01).save(flush:true)
 		def productInstance12 = new ProductGoods(xname:"时尚水杯", xpackage:"package",xmaterial:"material", xsize:"size", xcolor:"color", xdesc:"desc", xorderIndex:12, xstatus:1, xthumbnail:"list8.jpg", xprice:570, xrecommend:true, xishot:true, xquantity:10, xpopularity:10, category:productCategoryInstance0101, brand:brandInstance01).save(flush:true)
 		/*品牌与分类*******************************************************************************/
+		/*
 		new ProductCategoryBrand(category:productCategoryInstance0101, brand: brandInstance01).save(flush:true)
 		new ProductCategoryBrand(category:productCategoryInstance0102, brand: brandInstance01).save(flush:true)
 		new ProductCategoryBrand(category:productCategoryInstance0103, brand: brandInstance01).save(flush:true)
@@ -122,6 +123,7 @@ class BootStrap {
 		new ProductCategoryBrand(category:productCategoryInstance0205, brand: brandInstance02).save(flush:true)
 		new ProductCategoryBrand(category:productCategoryInstance0206, brand: brandInstance02).save(flush:true)
 		new ProductCategoryBrand(category:productCategoryInstance0207, brand: brandInstance02).save(flush:true)
+		*/
     }
     def destroy = {
     }
