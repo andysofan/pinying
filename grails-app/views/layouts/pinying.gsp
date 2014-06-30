@@ -216,7 +216,7 @@
                    	<g:include controller="index" action="menuFirstLevelCategory" />
                     <!-- 其他 -->
                     <li class="navi0">
-                        <a href="#" title="" class="i1">其他</a>
+                        <a href="${createLink(controller:'index', action:'brand', params:[brandId:-2])}" title="" class="i1">其他</a>
                     </li>
                     <!-- 关于我们 -->
                     <li class="navi02 navi0">

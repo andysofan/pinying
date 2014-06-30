@@ -2,7 +2,15 @@
 <html>
 <head>
 	<meta name="layout" content="pinying"/>
-	<title>品牌专区~Best Gift</title>
+	<title>
+		<g:if test="${params.int('brandId').toLong() >= -1L}">
+			品牌专区
+		</g:if>
+		<g:else>
+			其它
+		</g:else>
+		~Best Gift
+	</title>
 	<g:set var="order" value="${params?.order?:'asc'}"/>
 	<g:set var="order" value="${(order == 'asc')?'desc':'asc'}"/>
 	<g:set var="sort" value="${params?.sort}"/>

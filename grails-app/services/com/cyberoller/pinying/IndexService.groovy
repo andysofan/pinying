@@ -153,7 +153,11 @@ class IndexService {
 				if(brandId > 0){
 					eq("brand.id", brandId)
 				}else{
-					isNotNull("brand.id")
+					if(brandId == -1L){
+						isNotNull("brand.id")
+					}else{
+						isNull("brand.id")
+					}
 				}
 				
 				eq("xstatus", 1)
@@ -199,7 +203,11 @@ class IndexService {
 				if(brandId > 0){
 					eq("brand.id", brandId)
 				}else{
-					isNotNull("brand.id")
+					if(brandId == -1L){
+						isNotNull("brand.id")
+					}else{
+						isNull("brand.id")
+					}
 				}
 				eq("xstatus", 1)
 				//名称
