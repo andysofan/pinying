@@ -19,6 +19,7 @@
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<g:form action="signIn">
+				<input type="hidden" name="targetUri" value="${targetUri}" />
 				<table width="970" border="0" cellspacing="0" cellpadding="0">
 					<tbody>
 						<tr>
