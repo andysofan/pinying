@@ -434,7 +434,7 @@ class IndexService {
 				
 				//品牌ID
 				if(params?.brandId){
-					eq("brand.id", params.int('brandId'))
+					eq("brand.id", params.int('brandId').toLong())
 				}
 				//名称
 				if(params?.name){
