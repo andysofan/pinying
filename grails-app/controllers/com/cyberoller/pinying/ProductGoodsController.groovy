@@ -123,23 +123,38 @@ class ProductGoodsController {
 
 			String applicationPath = request.getSession().getServletContext().getRealPath("")
 			def fileExtension = file.originalFilename.substring(file.originalFilename.lastIndexOf("."))
-			def xfile = new File("${applicationPath}/images/pinying/images/${productId}thumbnail.${fileExtension}")
-			if(!xfile.exists()){
-				xfile.mkdirs()//目录不存在则创建
-			}
-			file.transferTo(xfile)
 
 			switch(params?.type){
 				case "xthumbnail":
-					productInstance.xthumbnail = "${productId}thumbnail.${fileExtension}"
+					def xfile = new File("${applicationPath}/images/pinying/images/${productId}xthumbnail.${fileExtension}")
+					if(!xfile.exists()){
+						xfile.mkdirs()//目录不存在则创建
+					}
+					file.transferTo(xfile)
+					productInstance.xthumbnail = "${productId}xthumbnail.${fileExtension}"
 					break
 				case "ximage1":
+					def xfile = new File("${applicationPath}/images/pinying/images/${productId}ximage1.${fileExtension}")
+					if(!xfile.exists()){
+						xfile.mkdirs()//目录不存在则创建
+					}
+					file.transferTo(xfile)
 					productInstance.ximage1 = "${productId}ximage1.${fileExtension}"
 					break
 				case "ximage2":
+					def xfile = new File("${applicationPath}/images/pinying/images/${productId}ximage2.${fileExtension}")
+					if(!xfile.exists()){
+						xfile.mkdirs()//目录不存在则创建
+					}
+					file.transferTo(xfile)
 					productInstance.ximage2 = "${productId}ximage2.${fileExtension}"
 					break
 				case "ximage3":
+					def xfile = new File("${applicationPath}/images/pinying/images/${productId}ximage3.${fileExtension}")
+					if(!xfile.exists()){
+						xfile.mkdirs()//目录不存在则创建
+					}
+					file.transferTo(xfile)
 					productInstance.ximage3 = "${productId}ximage3.${fileExtension}"
 					break
 				default:

@@ -14,44 +14,21 @@
 						<ul class="slides">
 							<li>
 								<a href="#" title="" target="_blank">
-									<img src="<g:resource dir="images/pinying/images/banner" file="banner06.jpg" />" width="579" height="409" alt="">
+									<img src="<g:resource dir="images/pinying/images" file="${productInstance?.ximage1}" />" width="579" height="409" alt="">
 								</a>
 							</li>
 							<li>
 								<a href="#" title="" target="_blank">
-									<img src="<g:resource dir="images/pinying/images/banner" file="banner06.jpg" />" width="579" height="409" alt="">
+									<img src="<g:resource dir="images/pinying/images" file="${productInstance?.ximage2}" />" width="579" height="409" alt="">
 								</a>
 							</li>
 							<li>
 								<a href="#" title="" target="_blank">
-									<img src="<g:resource dir="images/pinying/images/banner" file="banner06.jpg" />" width="579" height="409" alt="">
+									<img src="<g:resource dir="images/pinying/images" file="${productInstance?.ximage2}" />" width="579" height="409" alt="">
 								</a>
 							</li>
 						</ul>
 					</div>
-				</div>
-				<div class="fr pdright">
-					<h3>产品细节：</h3>
-					<ul>
-						<li>
-							<p>
-								<img alt="" src="<g:resource dir="images/pinying/images/detail" file="list301.png" />" width="107" height="100" />
-							</p>
-							<p>精细转角</p>
-						</li>
-						<li>
-							<p>
-								<img alt="" src="<g:resource dir="images/pinying/images/detail" file="list302.png" />" width="107" height="100" />
-							</p>
-							<p>手工艺的屋顶</p>
-						</li>
-						<li>
-							<p>
-								<img alt="" src="<g:resource dir="images/pinying/images/detail" file="list303.png" />" width="107" height="100" />
-							</p>
-							<p>机器的裁剪</p>
-						</li>
-					</ul>
 				</div>
 			</div>
 			<div class="detailinfo mt70">
