@@ -56,6 +56,40 @@ class ProductGoods {
 		xcolor(nullable:false)
 		xdesc(nullable:false)
     }
+
+	def beforeInsert(){
+		if(category && brand){
+			ProductCategoryBrand.withNewSession { session ->
+				def  productCategoryBrandInstance = ProductCategoryBrand.withCriteria(uniqueResult:true){
+					eq("category", category)
+					eq("brand", brand)
+				}
+				if(!productCategoryBrandInstance) {
+					productCategoryBrandInstance = new ProductCategoryBrand(
+					  category : category
+					, brand: brand
+					).save(flush:true)
+				}
+			}
+		}
+	}
+
+	def beforeUpdate ()  {
+		if(category && brand){
+			ProductCategoryBrand.withNewSession { session ->
+				def  productCategoryBrandInstance = ProductCategoryBrand.withCriteria(uniqueResult:true){
+					eq("category", category)
+					eq("brand", brand)
+				}
+				if(!productCategoryBrandInstance) {
+					productCategoryBrandInstance = new ProductCategoryBrand(
+					  category : category
+					, brand: brand
+					).save(flush:true)
+				}
+			}
+		}	    
+	}
     
     String toString(){
     	return "${xname}"
