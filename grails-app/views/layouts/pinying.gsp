@@ -220,7 +220,7 @@
                     </li>
                     <!-- 关于我们 -->
                     <li class="navi02 navi0">
-                        <a href="javascript:void(0)" title="" class="i1">关于我们</a>
+                        <a href="${createLink(controller:'about', action:'company')}" title="" class="i1">关于我们</a>
                         <div class="naviHover" style="display:none;">
                         	<dl>
                             	<dd>

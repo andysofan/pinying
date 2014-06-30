@@ -13,7 +13,7 @@
 	<div class="aboutconpany mt10">
 		<div class="hline"></div>
 		<div class="breadCrumb">
-			<a href="${createLink(controller:'about', action:'company')}" title="关于我们" target="_blank">关于我们</a>
+			<a href="${createLink(controller:'about', action:'company')}" title="关于我们">关于我们</a>
 			<em>&gt;</em>
 			<span>人才招聘</span>
 		</div>
