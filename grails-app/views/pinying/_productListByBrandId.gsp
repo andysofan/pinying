@@ -18,6 +18,11 @@
 				<g:include controller="favorite" action="isFavorite" params="[productId:productInstance.id]" />
 			</a>
 			</shiro:isLoggedIn>
+			<shiro:isNotLoggedIn>
+				<a class="add" href="javascript:void(0)" onclick="if(confirm('请登录，登录后可以导出')){window.location.href='${createLink(controller:'auth')}'}" title="">
+					收藏
+				</a>
+			</shiro:isNotLoggedIn>
 		</li>
 	</g:each>
 	</ul>
