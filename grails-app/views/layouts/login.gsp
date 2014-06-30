@@ -183,6 +183,9 @@
 					<shiro:isLoggedIn>
 						<shiro:principal/>
 						<a title="退出" href="${createLink(controller:'auth', action:'signOut')}">退出</a>
+						<shiro:hasRole name="${'manager'.toUpperCase()}">
+							<a title="系统管理" href="${createLink(controller:'productGoods')}">系统管理</a> 
+						</shiro:hasRole>
 						<a class="spriteicon" title="我的收藏夹" href="${createLink(controller:'favorite')}">我的收藏夹</a>
 					</shiro:isLoggedIn>
 					<shiro:isNotLoggedIn>
