@@ -3,6 +3,7 @@
 <head>
 	<meta name="layout" content="pinying"/>
 	<title>产品信息~Best Gift</title>
+	<link rel="stylesheet" href="${resource(dir:"css/pinying", file:"static.css")}" />
 </head>
 <body>
 	<div class="aboutconpany mt10">
@@ -30,7 +31,31 @@
 						</ul>
 					</div>
 				</div>
+			<div class="fr pdright">
+				<h3>产品细节：</h3>
+				<ul>
+					<li>
+						<p>
+							<img alt="" src="<g:resource dir="images/pinying/images" file="${productInstance?.ximage1}" />" width="107" height="100" />
+						</p>
+						<p>&nbsp;</p>
+					</li>
+					<li>
+						<p>
+							<img alt="" src="<g:resource dir="images/pinying/images" file="${productInstance?.ximage2}" />" width="107" height="100" />
+						</p>
+						<p>&nbsp;</p>
+					</li>
+					<li>
+						<p>
+							<img alt="" src="<g:resource dir="images/pinying/images" file="${productInstance?.ximage3}" />" width="107" height="100" />
+						</p>
+						<p>&nbsp;</p>
+					</li>
+				</ul>
 			</div>
+			</div>
+
 			<div class="detailinfo mt70">
 				<ul>
 					<li class="clearFix">
