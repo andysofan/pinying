@@ -32,7 +32,7 @@
 						<tr>
 							<td height="53" align="right"><g:message code="custom.page.login.data5" /></td>
 							<td>
-								<input type="password" class="text :min_length;6 :max_length;30 :required fl" name="password">
+								<input type="password" class="text :min_length;8 :max_length;30 :required fl" name="password">
 								<label class="info fl"><g:message code="custom.page.login.data6" /></label>
 							</td>
 						</tr>

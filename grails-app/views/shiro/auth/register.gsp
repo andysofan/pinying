@@ -38,7 +38,7 @@
 						<tr>
 							<td width="112" height="53" align="right"><g:message code="custom.page.register.data6" /></td>
 							<td width="617">
-								<input type="password" value="" class="text :required :min_length;6 :max_length;30 fl" name="password" id="usrpassd" />
+								<input type="password" value="" class="text :required :min_length;8 :max_length;30 fl" name="password" id="usrpassd" />
 								<label class="info fl"><g:message code="custom.page.register.data7" /></label>
 							</td>
 						</tr>
