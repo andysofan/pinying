@@ -310,10 +310,22 @@ class FavoriteService {
 
 				downFile = "${downPath}/${downName}"
 
+			//获取用户ID
+			def currentUserId = this.currentUserId()
+			//取收藏列表
+			def favoriteInstanceList = Favorite.withCriteria {
+				createAlias "productGoods", "product"
+				projections{
+					groupProperty("product.id")
+				}
+				join("productGoods")
+				eq("user.id", currentUserId)
+			}
 			def productInstanceList = ProductGoods.withCriteria(){
 				if(id){
 					eq("id", id)
 				}
+				inList("id", favoriteInstanceList)
 			}
 			if(!productInstanceList){
 				throw new RuntimeException("没有收藏")

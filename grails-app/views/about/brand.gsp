@@ -5,7 +5,7 @@
 	<link rel="stylesheet" href="${resource(dir:"css/pinying", file:"static.css")}" />
 
 	<title>
-		品牌建设
+		<g:message code="menu.brand.label" />
 		~
 		Best Gift
 	</title>
@@ -14,15 +14,15 @@
 	<div class="aboutconpany mt10">
 		<div class="hline"></div>
 		<div class="breadCrumb">
-			<a href="${createLink(controller:'about', action:'company')}" title="关于我们">关于我们</a>
+			<a href="${createLink(controller:'about', action:'company')}" title="<g:message code="menu.about.label" />"><g:message code="menu.about.label" /></a>
 			<em>&gt;</em>
-			<span>品牌建设</span>
+			<span><g:message code="menu.brand.label" /></span>
 		</div>
 		<div class="banner">
 			<img alt="" src="${resource(dir:'images/pinying/images/banner', file:'banner03.jpg')}" width="747" height="286" />
 		</div>
 		<div class="tmain brandlist">
-			<h2>品牌建设：</h2>
+			<h2><g:message code="menu.brand.label" /></h2>
 			<ul class="clearFix mt10">
 				<li>
 					<img alt="" src="${resource(dir:'images/pinying/images/brand', file:'1.jpg')}" width="144" height="63" />

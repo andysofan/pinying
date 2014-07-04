@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta name="layout" content="pinying"/>
-	<title>产品信息~Best Gift</title>
+	<title><g:message code="custom.menu.productInfo" />~Best Gift</title>
 	<link rel="stylesheet" href="${resource(dir:"css/pinying", file:"static.css")}" />
 </head>
 <body>
@@ -25,14 +25,14 @@
 							</li>
 							<li>
 								<a href="#" title="" target="_blank">
-									<img src="<g:resource dir="images/pinying/images" file="${productInstance?.ximage2}" />" width="579" height="409" alt="">
+									<img src="<g:resource dir="images/pinying/images" file="${productInstance?.ximage3}" />" width="579" height="409" alt="">
 								</a>
 							</li>
 						</ul>
 					</div>
 				</div>
 			<div class="fr pdright">
-				<h3>产品细节：</h3>
+				<h3><g:message code="custom.productInfo.detail" /></h3>
 				<ul>
 					<li>
 						<p>
@@ -59,25 +59,25 @@
 			<div class="detailinfo mt70">
 				<ul>
 					<li class="clearFix">
-						<label>参考单价：</label>
+						<label><g:message code="custom.productInfo.detail.1" /></label>
 						<span>${productInstance?.xprice}RMB</span>
-						<label>包装：</label>
+						<label><g:message code="custom.productInfo.detail.2" /></label>
 						<span>${productInstance?.xpackage}</span>
 					</li>
 					<li class="clearFix">
-						<label>产品名称：</label>
+						<label><g:message code="custom.productInfo.detail.3" /></label>
 						<span>${productInstance?.xname}</span>
-						<label>材质：</label>
+						<label><g:message code="custom.productInfo.detail.4" /></label>
 						<span>${productInstance?.xmaterial}</span>
 					</li>
 					<li class="clearFix">
-						<label>尺寸：</label>
+						<label><g:message code="custom.productInfo.detail.5" /></label>
 						<span>${productInstance?.xsize}</span>
-						<label>颜色：</label>
+						<label><g:message code="custom.productInfo.detail.6" /></label>
 						<span>${productInstance?.xcolor}</span>
 					</li>
 				</ul>
-				<p class="mt10">产品描述：</p>
+				<p class="mt10"><g:message code="custom.productInfo.detail.7" /></p>
 				<div class="dfinfo">
 					${productInstance?.xdesc}
 				</div>

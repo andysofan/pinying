@@ -6,10 +6,13 @@ import org.apache.shiro.crypto.hash.Sha512Hash
 import org.apache.shiro.crypto.SecureRandomNumberGenerator
 
 import org.apache.shiro.SecurityUtils
+import java.text.SimpleDateFormat
 
 class UserService {
 
 	def messageSource
+
+	def mailService
 
 
     def register(Object params) {
@@ -65,12 +68,101 @@ class UserService {
 					throw new RuntimeException("检查失败：${errorMsg}")
 				}
 				userInstance.save(flush:true)
+
+				sendEmail(params?.username, params?.email)
 			}catch(e){
 				status.setRollbackOnly()
 				throw new RuntimeException("注册用户失败:${e.getMessage()}")
 			}
     	}
     }
+
+	def sendEmail(username, email){
+		try{
+			mailService.sendMail {
+				async true
+				to "${email}"
+				subject "Hello ${username}"
+				body "XXXXXXXXXXXXXXXX${username}XXXXXXXXXXXXXXXXXXXXXXXXX"
+			}
+		}catch(e){
+			log.error "send email to ${email} failed."
+		}
+	}
+
+
+
+	//忘记密码发送邮件
+	def sendEmailForForgetPassword(username, email, password){
+		/*
+		StringBuffer buffer = new StringBuffer()
+		buffer.append("尊敬的用户：\n").append("      您好！\n").append("        您在" + new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss").format(System.currentTimeMillis()))
+		buffer.append("提交找回密码请求\n")
+		buffer.append("您的用户名为:${username}\n")
+		buffer.append("密码为：${password}\n")
+		buffer.append("        为了保证您帐号的安全性，登录后请及时修改您的账户密码。\n")
+		buffer.append("        如果您误收到此电子邮件，则可能是其他用户在尝试帐号设置时的误操作，如果您并未发起该请\n")
+		buffer.append("求，则无需再进行任何操作，并可以放心地忽略此电子邮件。\n")
+		*/
+
+		def html = """
+		尊敬的用户：\n\t您好！\t您在${new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss").format(System.currentTimeMillis())}提交找回密码请求\n
+			您的用户名为:${username}\n
+			密码为：${password}\n
+			为了保证您帐号的安全性，登录后请及时修改您的账户密码。\n
+			如果您误收到此电子邮件，则可能是其他用户在尝试帐号设置时的误操作，如果您并未发起该请\n
+			求，则无需再进行任何操作，并可以放心地忽略此电子邮件。\n
+		"""
+		try{
+			mailService.sendMail {
+				async true
+				to "${email}"
+				subject "Hello ${username}"
+				body "${html}"
+			}
+		}catch(e){
+			log.error "send email to ${email} failed."
+		}
+	}
+
+
+	//忘记密码
+	def queryUserByEmailAndUsername( params ){
+		def userInstance
+		try{	
+				userInstance = User.withCriteria(uniqueResult:true){
+					and{
+						eq("username",params.username)
+						eq("email",params.email)
+					}
+				}
+				if(!userInstance){
+					throw new RuntimeException("用户不存在:${e.getMessage()}")
+					return
+				}
+				def flagNumber = getRandomString(8)
+				webResetPassword(userInstance,flagNumber,flagNumber)
+
+				println(">>>>>>>>>>>>>>>>>>>>>>${params.username}:${params.email}:${flagNumber}<<<<<<<<<<<<<<<<<<<<<<<<<<")
+				sendEmailForForgetPassword(userInstance.username, userInstance.email,flagNumber)
+		}catch(e){
+			throw new RuntimeException("用户不存在:${e.getMessage()}")
+		}
+		return userInstance
+	}
+
+	
+	//length表示生成字符串的长度  
+	def getRandomString(int length) { 
+		String base = "abcdefghijklmnopqrstuvwxyz0123456789";     
+		Random random = new Random();     
+		StringBuffer sb = new StringBuffer();     
+		for (int i = 0; i < length; i++) {     
+			int number = random.nextInt(base.length());     
+			sb.append(base.charAt(number));     
+		}     
+		return sb.toString();     
+ }  
 
 	/**
 	 * 重置密码
@@ -106,6 +198,71 @@ class UserService {
 		}
 		return result
     }
+
+	
+	/**
+	 * web重置密码页面 lxb
+	 **/
+	def resetPasswordPageService(){
+		def userInstance
+	try{
+			userInstance = User.withCriteria(uniqueResult:true){
+				eq("username", SecurityUtils.getSubject().getPrincipal())
+			}
+			println userInstance
+			if(!userInstance){
+				throw new RuntimeException("获取当前用户失败")
+			}
+		}catch(e){
+			throw new RuntimeException("密码修改失败")
+	}
+	return userInstance
+} 
+
+
+
+	/**
+	 * web重置密码
+	 */
+    def webResetPassword(User userInstance, String password, String passwordConfirm) {
+
+		println "**********${password}:::${passwordConfirm}*********"
+		def result = false
+		User.withTransaction{ status ->
+			try{
+				if(password != null && !password.trim().equals('') && password.size() >= 8 && password.equals(passwordConfirm)){
+					//生成随机盐
+					String salt = new SecureRandomNumberGenerator().nextBytes().toHex()	 //随机生成盐
+					String passwordHash = new Sha512Hash(password, salt).toHex()//生成加密密码
+					
+					userInstance.passwordHash = passwordHash
+					userInstance.passwordSalt = salt
+
+					userInstance.save(flush:true)
+
+					result = true
+				}else{
+					userInstance.errors.reject(
+						'user.passwordHash.doesnotmatch',                                    // Error code within the grails-app/i18n/message.properties
+						[] as Object[],                          // Groovy list cast to Object[]
+						'[password does not match confirmation]')   // Default mapping string
+					result = false
+					throw new RuntimeException("user.passwordHash.doesnotmatch")
+				}
+			}catch(e){
+				result = false
+				status.setRollbackOnly()
+				throw new RuntimeException("${e.getMessage()}")
+			}
+		}
+		return result
+    }
+
+
+
+
+
+
 
     /**
      *启用帐号

@@ -29,41 +29,6 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: productGoodsInstance, field: 'xthumbnail', 'error')} ">
-	<label for="xthumbnail">
-		<g:message code="productGoods.xthumbnail.label" default="Xthumbnail" />
-		
-	</label>
-	<g:textField name="xthumbnail" value="${productGoodsInstance?.xthumbnail}"/>
-
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: productGoodsInstance, field: 'ximage1', 'error')} ">
-	<label for="ximage1">
-		<g:message code="productGoods.ximage1.label" default="Ximage1" />
-		
-	</label>
-	<g:textField name="ximage1" value="${productGoodsInstance?.ximage1}"/>
-
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: productGoodsInstance, field: 'ximage2', 'error')} ">
-	<label for="ximage2">
-		<g:message code="productGoods.ximage2.label" default="Ximage2" />
-		
-	</label>
-	<g:textField name="ximage2" value="${productGoodsInstance?.ximage2}"/>
-
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: productGoodsInstance, field: 'ximage3', 'error')} ">
-	<label for="ximage3">
-		<g:message code="productGoods.ximage3.label" default="Ximage3" />
-		
-	</label>
-	<g:textField name="ximage3" value="${productGoodsInstance?.ximage3}"/>
-
-</div>
 
 <div class="fieldcontain ${hasErrors(bean: productGoodsInstance, field: 'xishot', 'error')} ">
 	<label for="xishot">

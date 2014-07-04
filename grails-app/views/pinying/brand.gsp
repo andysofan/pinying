@@ -4,10 +4,10 @@
 	<meta name="layout" content="pinying"/>
 	<title>
 		<g:if test="${params.int('brandId').toLong() >= -1L}">
-			品牌专区
+			<g:message code="custom.page.menu.brand" />
 		</g:if>
 		<g:else>
-			其它
+			<g:message code="custom.page.menu.other" />
 		</g:else>
 		~Best Gift
 	</title>
@@ -38,41 +38,47 @@
 <body>
 	<div class="searTop mt10">
 		<div class="banner mt5">
-			<img alt="" src="<g:resource dir="images/pinying/images/banner" file="banner08.jpg" />" width="760" height="115" />
+			<g:if test="${params.int('brandId').toLong() >= -1L}">
+				<img alt="" src="<g:resource dir="images/pinying/images/banner" file="banner08.jpg" />" width="760" height="115" />
+			</g:if>
+			<g:else>
+				<img alt="" src="<g:resource dir="images/pinying/images/banner" file="banner09.jpg" />" width="760" height="115" />
+			</g:else>
 		</div>
 	</div>
 	<div class="mt10">
 		<div class="searMain clearFix">
 			<div class="hline fl"></div>
-			<label class="fl">默认排序：</label>
+			<label class="fl"><g:message code="custom.page.category.01" /></label>
 			<ul class="fl phList">
 				<li class="${sort == 'xquantity'?'arrl':''}">
 					<a href="<g:createLink controller='index' action='brand' params='[brandId:params?.brandId, offset:params?.offset?:0,sort:'xquantity', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name ]' />" title="">
-						销量<em class="spriteicon ${(order == 'asc')?'up':'down'}"></em>
+						<g:message code="custom.page.category.08" /><em class="spriteicon ${(order == 'asc')?'up':'down'}"></em>
 					</a>
 				</li>
 				<li class="${sort == 'xpopularity'?'arrl':''}">
 					<a href="<g:createLink controller='index' action='brand' params='[brandId:params?.brandId, offset:params?.offset?:0,sort:'xpopularity', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name]' />" title="">
-						人气<em class="spriteicon ${(order == 'asc')?'down':'up'}"></em>
+						<g:message code="custom.page.category.09" /><em class="spriteicon ${(order == 'asc')?'down':'up'}"></em>
 					</a>
 				</li>
 				<li class="${sort == 'dateCreated'?'arrl':''}">
 					<a href="<g:createLink controller='index' action='brand' params='[brandId:params?.brandId, offset:params?.offset?:0,sort:'dateCreated', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name]' />" title="">
-						最新<em class="spriteicon ${(order == 'asc')?'down':'up'}"></em>
+						<g:message code="custom.page.category.10" /><em class="spriteicon ${(order == 'asc')?'down':'up'}"></em>
 					</a>
 				</li>
 				<li class="${sort == 'xprice'?'arrl':''}">
 					<a href="<g:createLink controller='index' action='brand' params='[brandId:params?.brandId, offset:params?.offset?:0,sort:'xprice', order:order, marketMinPrice: params?.marketMinPrice,marketMaxPrice:params?.marketMaxPrice, name:params?.name]' />" title="">
-						总价<em class="spriteicon ${(order == 'asc')?'down':'up'}"></em>
+						<g:message code="custom.page.category.11" /><em class="spriteicon ${(order == 'asc')?'down':'up'}"></em>
 					</a>
 				</li>
 			</ul>
 			<div class="fm-price fl">
-				<input id="s_marketMinPrice" type="text" data-value="&yen;" class="txt fl inputFocus" value="${params?.marketMinPrice?:'&yen;'}" />
+				<input id="s_marketMinPrice" type="text" data-value="" class="txt fl inputFocus" value="${params?.marketMinPrice?:''}" />
 				<span class="fl">-</span>
-				<input id="s_marketMaxPrice" type="text" data-value="&yen;" class="txt fl inputFocus" value="${params?.marketMaxPrice?:'&yen;'}" />
+				<input id="s_marketMaxPrice" type="text" data-value="" class="txt fl inputFocus" value="${params?.marketMaxPrice?:''}" />
 				<span class="fl">|</span>
-				<input id="s_name" type="text" data-value="请输入关键字" class="keywords fl inputFocus" value="${params?.name}" />								            <button type="button" class="i fl" onclick="search()">确定</button>
+				<input id="s_name" type="text" data-value="" class="keywords fl inputFocus" value="${params?.name}" />								            
+				<button type="button" class="i fl" onclick="search()"><g:message code="custom.page.category.12" /></button>
 			</div>
 		</div>
 		<div class="glagrPage">

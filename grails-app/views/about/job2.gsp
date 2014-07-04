@@ -4,7 +4,7 @@
 	<meta name="layout" content="pinying" />
 	<link rel="stylesheet" href="${resource(dir:"css/pinying", file:"static.css")}" />
 	<title>
-		人才招聘
+		<g:message code="menu.job.label" />
 		~
 		Best Gift
 	</title>
@@ -13,9 +13,9 @@
 	<div class="aboutconpany mt10">
 		<div class="hline"></div>
 		<div class="breadCrumb">
-			<a href="${createLink(controller:'about', action:'company')}" title="关于我们" >关于我们</a>
+			<a href="${createLink(controller:'about', action:'company')}" title="${message(code:'menu.about.label')}" >${message(code:'menu.about.label')}</a>
 			<em>&gt;</em>
-			<span>人才招聘</span>
+			<span><g:message code="menu.job.label" /></span>
 		</div>
 		<div class="banner">
 			<img alt="" src="${resource(dir:'images/pinying/images/banner', file:'banner07.jpg')}" width="747" height="301"/>
@@ -23,59 +23,59 @@
 		<div class="jobslist">
 			<table cellpadding="0" cellspacing="0" border="0" width="95%;">
 				<thead>
-					<th width="40%">职位名称</th>
-					<th width="20%">工作地点</th>
-					<th width="20%">公司</th>
-					<th width="15%">更新时间</th>
+					<th width="40%"><g:message code="custom.job.title" /></th>
+					<th width="20%"><g:message code="custom.job.location" /></th>
+					<th width="20%"><g:message code="custom.job.company" /></th>
+					<th width="15%"><g:message code="custom.job.updated" /></th>
 				</thead>
 				<tbody>
 					<tr>
-						<td><span>资深行政人事经理/人力资源经理(全国物流中心</span></td>
-						<td>上海市</td>
-						<td>品迎公司</td>
-						<td>2014年4月9号</td>
+						<td><span><g:message code="custom.job.title.1" /></span></td>
+						<td><g:message code="custom.job.location.1" /></td>
+						<td><g:message code="custom.job.company.1" /></td>
+						<td><g:message code="custom.job.updated.1" /></td>
 					</tr>
 					<tr>
-						<td><span>ESL Teacher(外教)全兼职均可	</span></td>
-						<td>上海市</td>
-						<td>品迎公司</td>
-						<td>2014年4月9号</td>
+						<td><span><g:message code="custom.job.title.2" /></span></td>
+						<td><g:message code="custom.job.location.1" /></td>
+						<td><g:message code="custom.job.company.1" /></td>
+						<td><g:message code="custom.job.updated.1" /></td>
 					</tr>
 					<tr>
-						<td><span>企业培训师、高级培训师、培训经理5名</span></td>
-						<td>上海市</td>
-						<td>品迎公司</td>
-						<td>2014年4月9号</td>
+						<td><span><g:message code="custom.job.title.3" /></span></td>
+						<td><g:message code="custom.job.location.1" /></td>
+						<td><g:message code="custom.job.company.1" /></td>
+						<td><g:message code="custom.job.updated.1" /></td>
 					</tr>
 					<tr>
-						<td><span>总经办主任(政府、来宾接待、外联、内务管理) </span></td>
-						<td>上海市</td>
-						<td>品迎公司</td>
-						<td>2014年4月9号</td>
+						<td><span><g:message code="custom.job.title.4" /></span></td>
+						<td><g:message code="custom.job.location.1" /></td>
+						<td><g:message code="custom.job.company.1" /></td>
+						<td><g:message code="custom.job.updated.1" /></td>
 					</tr>
 					<tr>
-						<td><span>培训专员(客服部)	</span></td>
-						<td>上海市</td>
-						<td>品迎公司</td>
-						<td>2014年4月9号</td>
+						<td><span><g:message code="custom.job.title.5" /></span></td>
+						<td><g:message code="custom.job.location.1" /></td>
+						<td><g:message code="custom.job.company.1" /></td>
+						<td><g:message code="custom.job.updated.1" /></td>
 					</tr>
 					<tr>
-						<td><span>商务总监(男装)</span></td>
-						<td>上海市</td>
-						<td>品迎公司</td>
-						<td>2014年4月9号</td>
+						<td><span><g:message code="custom.job.title.6" /></span></td>
+						<td><g:message code="custom.job.location.1" /></td>
+						<td><g:message code="custom.job.company.1" /></td>
+						<td><g:message code="custom.job.updated.1" /></td>
 					</tr>
 					<tr>
-						<td><span>商务总监(女装)</span></td>
-						<td>上海市</td>
-						<td>品迎公司</td>
-						<td>2014年4月9号</td>
+						<td><span><g:message code="custom.job.title.7" /></span></td>
+						<td><g:message code="custom.job.location.1" /></td>
+						<td><g:message code="custom.job.company.1" /></td>
+						<td><g:message code="custom.job.updated.1" /></td>
 					</tr>
 					<tr>
-						<td><span>产品造型师</span></td>
-						<td>上海市</td>
-						<td>品迎公司</td>
-						<td>2014年4月9号</td>
+						<td><span><g:message code="custom.job.title.8" /></span></td>
+						<td><g:message code="custom.job.location.1" /></td>
+						<td><g:message code="custom.job.company.1" /></td>
+						<td><g:message code="custom.job.updated.1" /></td>
 					</tr>
 				</tbody>
 			</table>

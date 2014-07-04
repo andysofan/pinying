@@ -5,7 +5,7 @@
 	<meta name="layout" content="manager">
     
     <title>
-		修改密码
+		<g:message code="user.update.password.title" />
 		~
 		<g:message code="global.app.name" default="PinYing"/>
 	</title>
@@ -18,7 +18,7 @@
 
     <div class="body">
     
-        <h1>修改密码</h1>
+        <h1><g:message code="user.update.password.title" /></h1>
         
         <g:if test="${flash.message}">
 			<div class="message"><g:message code="${flash.message}" args="${flash.args}" default="${flash.defaultMessage}" /></div>

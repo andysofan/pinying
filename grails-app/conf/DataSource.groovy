@@ -17,8 +17,12 @@ hibernate {
 environments {
     development {
         dataSource {
-            dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+            dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
+			driverClassName = "com.mysql.jdbc.Driver"
+			username = ""
+			password = ""
+			dialect = org.hibernate.dialect.MySQL5InnoDBDialect
         }
     }
     test {
@@ -31,10 +35,10 @@ environments {
         dataSource {
             dbCreate = "update"
 			dialect = org.hibernate.dialect.MySQL5InnoDBDialect
-            url = "jdbc:mysql://192.168.3.246:3306/pinying2?useUnicode=true&characterEncoding=UTF-8"
+            url = ""
 			driverClassName = "com.mysql.jdbc.Driver"
-			username = "root"
-			password = "123456"
+			username = ""
+			password = ""
             properties {
                // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                jmxEnabled = true

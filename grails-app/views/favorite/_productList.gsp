@@ -2,7 +2,7 @@
 <div class="piIconbg">
 	<ul class="clearFix">
 		<div class="clearFix" id="page_list">
-			<a class="fr spriteicon" id="batch_export_button" href="${createLink(controller:'favorite', action:'export')}">批量导出</a>
+			<a class="fr spriteicon" id="batch_export_button" href="${createLink(controller:'favorite', action:'export')}">${message(code:'custom.page.favorite.export1')}</a>
 		</div>
 	<g:each in="${productInstanceList}" status="i" var="productInstance">
 		<li>
@@ -11,17 +11,19 @@
 					<img alt="" src="<g:resource dir="images/pinying/images" file="${productInstance.thumbnail}" />" width="151" height="154" />
 				</a>
 				<div class="pricelist spriteicon">
-					<p class="mt10">￥${productInstance.price}</p>
+					<p class="mt10">${productInstance.price}</p>
 					<p>RMB</p>
 				</div>
 			</div>
 			<p class="pitit"><a href="${createLink(controller:'index', action:'product', id:productInstance.id)}" title="" class="bgcolor">${productInstance.name}</a></p>
 			<shiro:isLoggedIn>
-			<a class="add" href="javascript:void(0)" onclick="return toggleFavorite(this, ${productInstance.id})" title="">
-				<g:include controller="favorite" action="isFavorite" params="[productId:productInstance.id]" />
-			</a>
-			<a class="alone_export" href="${createLink(controller:'favorite', action:'export', id:productInstance.id)}">导出</a>
-			</shiro:isLoggedIn>
+			<div class="clearFix">
+				<a class="add fl" href="javascript:void(0)" onclick="return toggleFavorite(this, ${productInstance.id})" title="">
+					<g:include controller="favorite" action="isFavorite" params="[productId:productInstance.id]" />
+				</a>
+				<a class="alone_export fr" href="${createLink(controller:'favorite', action:'export', id:productInstance.id)}">${message(code:'custom.page.favorite.export2')}</a>
+				</shiro:isLoggedIn>
+			</div>
 		</li>
 	</g:each>
 	</ul>

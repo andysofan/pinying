@@ -80,5 +80,7 @@ grails.project.dependency.resolution = {
 		compile (":shiro:1.2.1"){			// http://grails.org/plugin/shiro
         	excludes "quartz"
         }
+
+		compile ":mail:1.0.6"				// http://grails.org/plugin/mail
     }
 }

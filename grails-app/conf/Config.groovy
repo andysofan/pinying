@@ -120,3 +120,22 @@ log4j.main = {
            'org.codehaus.groovy.grails.web.mapping', 		// URL mapping
 	       'grails.app'
 }
+
+grails.config.locations = ["classpath:app-${grails.util.Environment.current.name}-config.properties"]
+
+grails {
+   mail {
+     host = "smtp.gmail.com"
+     port = 465
+     username = "leaf.shi@gmail.com"
+     password = "qrvqqbjrbfqklhzu"
+     props = ["mail.smtp.auth":"true", 					   
+              "mail.smtp.socketFactory.port":"465",
+              "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+              "mail.smtp.socketFactory.fallback":"false"]
+
+	} 
+}
+mailOnException.enabled = true // enabled by default
+mailOnException.email.to = "leaf.shi@gmail.com"
+mailOnException.email.from = "leaf.shi@gmail.com"

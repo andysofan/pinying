@@ -15,8 +15,8 @@
 	<script type="text/javascript" src="${resource(dir:"js/pinying/common", file:"jquery.hoverIntent.js")}"></script>
 	<script type="text/javascript" src="${resource(dir:"js/pinying/common", file:"jquery.flexslider.js")}"></script>
 	<script type="text/javascript" src="${resource(dir:"js/pinying", file:"common.js")}"></script>
-	<script type="text/javascript" src="${resource(dir:"js/pinying/common", file:"new.js")}"></script>
-	<script type="text/javascript" src="${resource(dir:"js/pinying/common", file:"type.js")}"></script>
+	<script type="text/javascript" src="${resource(dir:"js/pinying", file:"new.js")}"></script>
+	<script type="text/javascript" src="${resource(dir:"js/pinying", file:"type.js")}"></script>
 	<script type="text/javascript" src="${resource(dir:"js/pinying", file:"filter.js")}"></script>
 	<script type="text/javascript">
 	    (function($){
@@ -182,15 +182,16 @@
                 <div class="fr card">
 					<shiro:isLoggedIn>
 						<shiro:principal/>
-						<a title="退出" href="${createLink(controller:'auth', action:'signOut')}">退出</a>
+						<a title="<g:message code="custom.auth.logout" />" href="${createLink(controller:'auth', action:'signOut')}"><g:message code="custom.auth.logout" /></a>
+						<a title="<g:message code="custom.auth.resetpassword" />" href="${createLink(controller:'user', action:'resetPasswordPage')}"><g:message code="custom.auth.resetpassword" /></a>
 						<shiro:hasRole name="${'manager'.toUpperCase()}">
-							<a title="系统管理" href="${createLink(controller:'productGoods')}">系统管理</a> 
+							<a title="<g:message code="custom.menu.manage" />" href="${createLink(controller:'productGoods')}"><g:message code="custom.menu.manage" /></a> 
 						</shiro:hasRole>
-						<a class="spriteicon" title="我的收藏夹" href="${createLink(controller:'favorite')}">我的收藏夹</a>
+						<a class="spriteicon" title="<g:message code="custom.menu.favorite" />" href="${createLink(controller:'favorite')}"><g:message code="custom.menu.favorite" /></a>
 					</shiro:isLoggedIn>
 					<shiro:isNotLoggedIn>
-						<a id="login" href="${createLink(controller:'auth')}">登录</a>
-						<a id="register" href="register.html">注册</a>
+						<a id="login" href="${createLink(controller:'auth')}"><g:message code="custom.auth.login" /></a>
+						<a id="register" href="register.html"><g:message code="custom.auth.register" /></a>
 					</shiro:isNotLoggedIn>
                 </div>
             </div>
@@ -199,11 +200,11 @@
                 <ul class="nav fl">
                 	<!-- 首页 -->
                     <li class="first">
-                        <a href="${createLink( controller:'index', action:'index')}" title="首页" class="home i1">首页</a>
+                        <a href="${createLink( controller:'index', action:'index')}" title="<g:message code="custom.menu.home" />" class="home i1"><g:message code="custom.menu.home" /> </a>
                     </li>
                     <!-- 品牌专区 -->
                     <li class="navi0 navi02">
-                        <a href="${createLink(controller:'index', action:'brand', params:[brandId:-1])}" title="" class="i1">品牌专区</a>
+                        <a href="${createLink(controller:'index', action:'brand', params:[brandId:-1])}" title="" class="i1"><g:message code="custom.menu.brandzone" /></a>
                         <div class="naviHover" style="display:none;">
 							<g:include controller="pinying" action="menuBrandList" />
                         </div>
@@ -212,27 +213,24 @@
                    	<g:include controller="index" action="menuFirstLevelCategory" />
                     <!-- 其他 -->
                     <li class="navi0">
-                        <a href="#" title="" class="i1">其他</a>
+                        <a href="#" title="" class="i1"><g:message code="custom.menu.other" /></a>
                     </li>
                     <!-- 关于我们 -->
                     <li class="navi02 navi0">
-                        <a href="${createLink(controller:'about', action:'company')}" title="" class="i1">关于我们</a>
+                        <a href="${createLink(controller:'about', action:'company')}" title="" class="i1">${message(code:'menu.about.label')}</a>
                         <div class="naviHover" style="display:none;">
                         	<dl>
                             	<dd>
-                                	<a href="${createLink(controller:'about', action:'brand')}" title="">品牌建设</a>
+                                	<a href="${createLink(controller:'about', action:'brand')}" title=""><g:message code="menu.brand.label" /></a>
                                 </dd>
                             	<dd>
-                                	<a href="${createLink(controller:'about', action:'company')}" title="">成功案例</a>
+                                	<a href="${createLink(controller:'about', action:'company')}" title=""><g:message code="about.company.label" /></a>
                                 </dd>
                             	<dd>
-                                	<a href="${createLink(controller:'about', action:'company')}" title="">公司简介</a>
+                                	<a href="${createLink(controller:'about', action:'job')}" title=""><g:message code="menu.job.label" /></a>
                                 </dd>
                             	<dd>
-                                	<a href="${createLink(controller:'about', action:'job')}" title="">人才招聘</a>
-                                </dd>
-                            	<dd>
-                                	<a href="${createLink(controller:'about', action:'contact')}" title="">联系我们</a>
+                                	<a href="${createLink(controller:'about', action:'contact')}" title=""><g:message code="menu.about.contact" /></a>
                                 </dd>
                             </dl>
                         </div>
@@ -241,8 +239,8 @@
             	<!-- nav end -->
             	<!-- Search start -->
                 <div class="fl search">
-                	<input type="text" value="" class="getFocus spriteicon" data-tip="搜索" id="searchAll" />
-                    <button class="iconSearch spriteicon" type="button" >查找</button>
+                	<input type="text" value="" class="getFocus spriteicon" data-tip="${message(code:'custom.data.1')}" id="searchAll" />
+                    <button class="iconSearch spriteicon" type="button" >${message(code:'custom.data.2')}</button>
                 </div>
             	<!-- Search end -->
             </div>
@@ -253,7 +251,7 @@
          <!-- footer start -->
          <div class="footer">
          	<div id="footerBottom" class="clearFix">
-				版权所有 Copyright 2012 品迎 业务联系：info(#)bestgift.com 沪ICP备10221484
+				${message(code:'custom.footer.label')}
             </div>
          </div>
          <!-- footer end -->

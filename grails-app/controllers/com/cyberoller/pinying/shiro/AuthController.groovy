@@ -6,6 +6,9 @@ import org.apache.shiro.authc.UsernamePasswordToken
 import org.apache.shiro.web.util.SavedRequest
 import org.apache.shiro.web.util.WebUtils
 
+import grails.transaction.Transactional
+
+
 class AuthController {
 
 	def userService
@@ -107,6 +110,30 @@ class AuthController {
     def register(){
 		render view:"/shiro/auth/register"
     }
+	
+	//忘记密码页面
+	def webForgetPassword(){
+		render view:"/shiro/auth/web_forgetPassword"
+	}
+	
+	//忘记密码
+	@Transactional
+	def forgetPasswordByWeb( params ){
+		def userInstance
+		try{
+			userInstance = userService.queryUserByEmailAndUsername(params)
+			if(!userInstance){
+				throw new RuntimeException("用户不存在:${e.getMessage()}")
+				return
+			}
+			redirect action:"login"
+		}catch(e){
+			throw new RuntimeException("用户不存在:${e.getMessage()}")
+			render view:"/shiro/auth/web_forgetPassword"
+		}
+	}
+
+
     def submitRegister(){
     	try{
 			userService.register(params)

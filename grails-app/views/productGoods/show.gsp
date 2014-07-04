@@ -189,10 +189,10 @@
 			<g:form url="[resource:productGoodsInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
 					<g:link class="edit" action="edit" resource="${productGoodsInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-					<g:link class="edit" action="upload" id="${productGoodsInstance?.id}" params="[type:'xthumbnail']" >\u4e0a\u4f20\u7f29\u5fae\u56fe</g:link>
-					<g:link class="edit" action="upload" id="${productGoodsInstance?.id}" params="[type:'ximage1']" >\u4e0a\u4f20\u5927\u56fe1</g:link>
-					<g:link class="edit" action="upload" id="${productGoodsInstance?.id}" params="[type:'ximage2']" >\u4e0a\u4f20\u5927\u56fe2</g:link>
-					<g:link class="edit" action="upload" id="${productGoodsInstance?.id}" params="[type:'ximage3']" >\u4e0a\u4f20\u5927\u56fe3</g:link>
+					<g:link class="edit" action="upload" id="${productGoodsInstance?.id}" params="[type:'xthumbnail']" >${message(code:'productGoods.upload.xthumbnail')}</g:link>
+					<g:link class="edit" action="upload" id="${productGoodsInstance?.id}" params="[type:'ximage1']" >${message(code:'productGoods.upload.ximage1')}</g:link>
+					<g:link class="edit" action="upload" id="${productGoodsInstance?.id}" params="[type:'ximage2']" >${message(code:'productGoods.upload.ximage2')}</g:link>
+					<g:link class="edit" action="upload" id="${productGoodsInstance?.id}" params="[type:'ximage3']" >${message(code:'productGoods.upload.ximage3')}</g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>

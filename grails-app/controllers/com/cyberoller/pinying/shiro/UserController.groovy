@@ -120,6 +120,7 @@ class UserController {
 	/**
 	 * 重置密码
 	 **/
+	
     def reset(Long id, Long version){
 		def userInstance = User.get( id )
         if (!userInstance) {
@@ -146,10 +147,68 @@ class UserController {
 		}
 		redirect(controller : "user", action: "show", id : id)
     }
+
+
+
+	/**
+	 * web重置密码 lxb
+	 **/
+	
+	def resetPasswordPage(){
+		render view : '/user/web_resetPassword', model : [userInstance: userService.resetPasswordPageService()]
+	}
+
+
+
+	/**
+	 * web重置密码 lxb
+	 **/
+	@Transactional
+    def webResetPassword(Long id, Long version){
+		def userInstance = User.get( id )
+
+        if (!userInstance) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params?.username])
+            redirect(controller : "index", action: "index")
+            return
+        }
+        
+		if (version != null) {
+            if (userInstance.version > version) {
+                userInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
+                          [message(code: 'user.label', default: 'User')] as Object[],
+                          "Another user has updated this User while you were editing")
+                redirect(controller : "user", action: "resetPasswordPage")
+                return
+            }
+        }
+		try{
+			userService.webResetPassword(userInstance, params.password, params.passwordConfirm)
+			flash.message = message(code: 'user.password.reset', args: [params?.username])
+		}catch(e){
+			flash.message = e.getMessage()
+			render(view: "/user/web_resetPassword", model: [userInstance: userInstance])
+		}
+		redirect(uri:'/')
+    }
+	
+
+
+	/**
+	 * web忘记密码 lxb
+	 **/
+	
+	def webForgetPassword(){
+		render view : '/user/web_forgetPassword'
+	}
+
+
+
     
 	/**
 	 * 启用帐号
 	 **/
+	 @Transactional
     def activeUser(Long id, Long version){
         def userInstance = User.get( id )
         if (!userInstance) {
@@ -181,6 +240,7 @@ class UserController {
 	/**
 	 * 停用帐号
 	 **/
+	 @Transactional
     def inActiveUser(Long id, Long version){
         def userInstance = User.get( id )
         if (!userInstance) {
@@ -208,7 +268,7 @@ class UserController {
 			redirect(action: "show", id : id)
 		}
     }
-
+	@Transactional
 	def unlockUser (Long id, Long version)  {
 		try{
 			def userInstance = User.get( id )

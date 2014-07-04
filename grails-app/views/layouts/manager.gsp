@@ -14,12 +14,12 @@
 		<link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'apple-touch-icon-retina.png')}">
   		<asset:stylesheet src="application.css"/>
 		<asset:javascript src="application.js"/>
-		<!--自定义样式-->
+
 		<asset:stylesheet src="manager/custom.css"/>
 		<asset:stylesheet src="manager/purecss/base-min.css"/>
 		<asset:stylesheet src="manager/purecss/menus-min.css"/>
 		<asset:stylesheet src="manager/purecss/menus-nr-min.css"/>
-		<!--自定义脚本-->
+
 		<asset:javascript src="manager/my-numeric.js"/>
 		<!--JQuery UI-->
 		<jqui:resources />
@@ -28,24 +28,24 @@
 		<asset:javascript src="manager/jquery-blockui/jquery.blockUI.dialog.js"/>
 		<!---->
 		<script type="text/javascript">
-			//改变窗体大小
+
 			function resize(){
-				//浏览器时下窗口可视区域高度
+
 				var height = $(window).height();
-				//页脚高度
+
 				var footer_height = $(".footer").height()
-				//主区域高度
+
 				$(".main").css("min-height", height.sub(footer_height).sub(0).toString() + "px");
 			}
-			//页面加载
+
 			$(document).ready(function(){
-				//配置退出
+
 				var url = "${createLink(controller: 'auth', action : 'signOut')}";
 				$("a[href='"+url+"']").attr("href", "javascript:void(0)").click(function(){
 					$.confirm({
-						message: "确定要退出吗？",
-						okText: "确定",
-						cancelText: "取消",
+						message: "Confirm",
+						okText: "Confirm",
+						cancelText: "Cancel",
 						css: {
 							"background-color": "white",
 							"color": "red"
@@ -58,10 +58,10 @@
                         }
 					});
 				});
-				//改变窗体大小
+
 				resize();
 			});
-			//改变窗体大小
+
 			$(window).resize(function() {
 				resize();
 			});

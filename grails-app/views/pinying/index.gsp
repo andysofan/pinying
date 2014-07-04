@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta name="layout" content="pinying"/>
-	<title>首页~Best Gift</title>
+	<title><g:message code="custom.menu.home" />~Best Gift</title>
 </head>
 <body>
 	<!-- 轮播图片 start -->
