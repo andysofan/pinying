@@ -5,16 +5,18 @@ package com.cyberoller.pinying
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Transactional(readOnly = true)
+
 class KvController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-
+	
+	@Transactional(readOnly = true)
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Kv.list(params), model:[kvInstanceCount: Kv.count()]
     }
-
+	
+	@Transactional(readOnly = true)
     def show(Kv kvInstance) {
         respond kvInstance
     }
