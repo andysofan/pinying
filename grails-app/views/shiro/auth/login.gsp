@@ -15,8 +15,10 @@
 			<label class="reg fr"><g:message code="custom.page.login.data1" /><a href="${createLink(controller:'auth', action:'register')}"><g:message code="custom.page.login.data2" /> &gt;&gt;</a></label>
 		</div>
 		<div class="content" id="container">
-			<g:if test="${flash.message}">
-				<div class="base_error" role="status">${flash.message}</div>
+			<g:if test="${flash.message}" >
+				<div class="base_error" role="status">
+					<g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"/>
+				</div>
 			</g:if>
 			<g:form action="signIn">
 				<input type="hidden" name="targetUri" value="${targetUri}" />

@@ -16,8 +16,8 @@
 		<div id="list-productGoods" class="content scaffold-list" role="main">
 			<h1>
 				<g:message code="default.list.label" args="[entityName]" />
-				<a href="${createLink(action:'create')}">
-					+
+				<a href="${createLink(action:'create')}" style="font-size:16px;">
+					<g:message code="default.create.label" args="[entityName]" />
 				</a>
 			</h1>
 			<g:if test="${flash.message}">

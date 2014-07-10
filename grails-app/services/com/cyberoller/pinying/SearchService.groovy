@@ -87,10 +87,10 @@ class SearchService {
 					property("xthumbnail", "thumbnail")
 					property("xprice", "price")
 				}
-				if(params?.brandId){
+				if(params?.brandId && params.int('brandId') > 0){
 					eq("brand.id", params.int('brandId').toLong())
 				}
-				if(params?.categoryId){
+				if(params?.categoryId && params.int('categoryId') > 0){
 					eq("category.id", params.int('categoryId').toLong())
 				}
 				
@@ -134,10 +134,10 @@ class SearchService {
 				projections{
 					count()
 				}
-				if(params?.brandId){
+				if(params?.brandId && params.int('brandId') > 0){
 					eq("brand.id", params.int('brandId').toLong())
 				}
-				if(params?.categoryId){
+				if(params?.categoryId && params.int('categoryId') > 0){
 					eq("category.id", params.int('categoryId').toLong())
 				}
 				eq("xstatus", 1)

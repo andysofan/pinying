@@ -8,7 +8,7 @@
 					<img alt="" src="<g:resource dir="images/pinying/images" file="${productInstance.thumbnail}" />" width="151" height="154" />
 				</a>
 				<div class="pricelist spriteicon">
-					<p class="mt10">￥${productInstance.price}</p>
+					<p class="mt10">${productInstance.price}</p>
 					<p>RMB</p>
 				</div>
 			</div>
@@ -19,8 +19,8 @@
 			</a>
 			</shiro:isLoggedIn>
 			<shiro:isNotLoggedIn>
-				<a class="add" href="javascript:void(0)" onclick="if(confirm('请登录，登录后可以导出')){window.location.href='${createLink(controller:'auth')}'}" title="">
-					收藏
+				<a class="add" href="javascript:void(0)" onclick="if(confirm('<g:message code="custom.favorite.tipe" />')){window.location.href='${createLink(controller:'auth')}'}" title="">
+					<g:message code="custom.button.favorite" />
 				</a>
 			</shiro:isNotLoggedIn>
 		</li>
