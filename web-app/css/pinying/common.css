@@ -209,3 +209,4 @@ a.alone_export{ background:url("images/export.png") no-repeat 0 0; display:inlin
 .jobdetail ul{ padding:0 20px;}
 .jobdetail li{ color:#b0afaf; line-height:22px; list-style:decimal;}
 .jobbtn a{ display:block; background:#c0a354; color:#fff; width:103px; height:31px; line-height:31px; border-radius:5px; text-align:center; margin:10px 0;}
+.jobslist a{color:#c0a354;}

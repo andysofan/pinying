@@ -54,7 +54,10 @@
 				<li class="fieldcontain">
 					<span id="xduty-label" class="property-label"><g:message code="xjob.xduty.label" default="Xduty" /></span>
 					
-						<span class="property-value" aria-labelledby="xduty-label"><g:fieldValue bean="${xjobInstance}" field="xduty"/></span>
+						<span class="property-value" aria-labelledby="xduty-label">
+							${raw(xjobInstance?.xduty?.replaceAll('\r\n', '<br>'))}
+							
+						</span>
 					
 				</li>
 				</g:if>
@@ -63,7 +66,8 @@
 				<li class="fieldcontain">
 					<span id="xrequire-label" class="property-label"><g:message code="xjob.xrequire.label" default="Xrequire" /></span>
 					
-						<span class="property-value" aria-labelledby="xrequire-label"><g:fieldValue bean="${xjobInstance}" field="xrequire"/></span>
+						<span class="property-value" aria-labelledby="xrequire-label">
+						${raw(xjobInstance?.xrequire?.replaceAll('\r\n', '<br>'))}</span>
 					
 				</li>
 				</g:if>

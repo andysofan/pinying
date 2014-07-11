@@ -25,13 +25,17 @@
 			<div class="mt10">
 				<label><g:message code="xjob.xduty.label" default="Xduty" /></label>
 				<ul>
-					${xjobInstance?.xduty?.replaceAll('/\n/g', '<br/>')}
+					<g:each in="${xjobInstance?.xduty?.split('\r\n')}" status="i" var="xduty">
+						<li>${xduty}</li>
+					</g:each>
 				</ul>
 			</div>
 			<div class="mt10">
 				<label><g:message code="xjob.xrequire.label" default="Xrequire" /></label>
 				<ul>
-					${xjobInstance?.xrequire}
+					<g:each in="${xjobInstance?.xrequire?.split('\r\n')}" status="i" var="require">
+						<li>${require}</li>
+					</g:each>
 				</ul>
 			</div>
 			<div class="jobbtn clearFix">
