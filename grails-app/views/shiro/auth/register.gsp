@@ -12,7 +12,7 @@
 	<div id="loginPanel">
 		<div class="title clearFix">
 			<label class="fl"><g:message code="custom.page.register.data1" /></label>
-			<label class="reg fr"><g:message code="custom.page.register.data2" /><a href="${createLink(controller:'auth', action:'signIn')}"><g:message code="custom.page.register.data3" /> &gt;&gt;</a></label>
+			<label class="reg fr"><g:message code="custom.page.register.data2" /><a href="${createLink(controller:'auth', action:'login')}"><g:message code="custom.page.register.data3" /> &gt;&gt;</a></label>
 		</div>
 		<div class="content" id="container">
 			<g:if test="${flash.message}">
