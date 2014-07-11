@@ -513,4 +513,52 @@ class IndexService {
 		}
 		return kvInstanceList
 	}
+	/************************************************************************************/
+	//获取招聘列表
+	@Transactional(readOnly = true)
+	def getJobList(){
+		def xjobInstanceList
+		try{
+			xjobInstanceList = Xjob.withCriteria() {
+				projections{
+					property("id", "id")
+					property("xname", "xname")
+					property("xquantity", "xquantity")
+					property("lastUpdated", "lastUpdated")
+				}
+				//已启用
+				eq("xisActive", true)
+				order("xcode", "asc")
+				resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
+			}
+			log.info "**********xjobInstanceList=${xjobInstanceList}"
+		}catch(e){
+			throw new RuntimeException("取招聘列表错误:${e.getMessage()}")
+		}
+		return xjobInstanceList
+	}
+	//获取招聘
+	@Transactional(readOnly = true)
+	def getJob(Long id){
+		def xjobInstance
+		try{
+			xjobInstance = Xjob.withCriteria(uniqueResult:true) {
+				projections{
+					property("xcode", "xcode")
+					property("xname", "xname")
+					property("xquantity", "xquantity")
+					property("xduty", "xduty")
+					property("xrequire", "xrequire")
+				}
+				//已启用
+				eq("xisActive", true)
+				eq("id", id)
+				resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
+			}
+			log.info "**********xjobInstance=${xjobInstance}"
+		}catch(e){
+			throw new RuntimeException("取招聘错误:${e.getMessage()}")
+		}
+		return xjobInstance
+	}
 }

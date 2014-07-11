@@ -191,4 +191,24 @@ class IndexController {
 			render template : "/pinying/kv", model : [kvInstanceList:null]
 		}	
 	}
+	/************************************************************************************/
+	//获取招聘列表
+	def getJobList ()  {
+	    try{
+			def xjobInstanceList = indexService.getJobList()
+			render template : "/about/jobs", model : [xjobInstanceList:xjobInstanceList]
+		}catch(e){
+			flash.message = e.getMessage()
+			render template : "/about/jobs", model : [xjobInstanceList:null]
+		}	
+	}
+	def getJob (Long id)  {
+	    try{
+			def xjobInstance = indexService.getJob(id)
+			render view : "/about/job", model : [xjobInstance:xjobInstance]
+		}catch(e){
+			flash.message = e.getMessage()
+			render view : "/about/job", model : [xjobInstance:null]
+		}	
+	}
 }

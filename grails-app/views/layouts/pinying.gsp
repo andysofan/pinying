@@ -231,7 +231,7 @@
                                 	<a href="${createLink(controller:'about', action:'company')}" title=""><g:message code="about.company.label" /></a>
                                 </dd>
                             	<dd>
-                                	<a href="${createLink(controller:'about', action:'job')}" title=""><g:message code="menu.job.label" /></a>
+                                	<a href="${createLink(controller:'about', action:'job2')}" title=""><g:message code="menu.job.label" /></a>
                                 </dd>
                             	<dd>
                                 	<a href="${createLink(controller:'about', action:'contact')}" title=""><g:message code="menu.about.contact" /></a>

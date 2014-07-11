@@ -203,3 +203,9 @@ a.alone_export{ background:url("images/export.png") no-repeat 0 0; display:inlin
 	background-color: rgb(255,245,209);
 	font-size: 12px;
 }
+
+.jobdetail h2{ color:#c0a354; font-size:18px; font-weight:bold; padding:10px 0;}
+.jobdetail label{color:#c0a354; font-size:14px;}
+.jobdetail ul{ padding:0 20px;}
+.jobdetail li{ color:#b0afaf; line-height:22px; list-style:decimal;}
+.jobbtn a{ display:block; background:#c0a354; color:#fff; width:103px; height:31px; line-height:31px; border-radius:5px; text-align:center; margin:10px 0;}

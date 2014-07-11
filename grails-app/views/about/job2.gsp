@@ -29,54 +29,7 @@
 					<th width="15%"><g:message code="custom.job.updated" /></th>
 				</thead>
 				<tbody>
-					<tr>
-						<td><span><g:message code="custom.job.title.1" /></span></td>
-						<td><g:message code="custom.job.location.1" /></td>
-						<td><g:message code="custom.job.company.1" /></td>
-						<td><g:message code="custom.job.updated.1" /></td>
-					</tr>
-					<tr>
-						<td><span><g:message code="custom.job.title.2" /></span></td>
-						<td><g:message code="custom.job.location.1" /></td>
-						<td><g:message code="custom.job.company.1" /></td>
-						<td><g:message code="custom.job.updated.1" /></td>
-					</tr>
-					<tr>
-						<td><span><g:message code="custom.job.title.3" /></span></td>
-						<td><g:message code="custom.job.location.1" /></td>
-						<td><g:message code="custom.job.company.1" /></td>
-						<td><g:message code="custom.job.updated.1" /></td>
-					</tr>
-					<tr>
-						<td><span><g:message code="custom.job.title.4" /></span></td>
-						<td><g:message code="custom.job.location.1" /></td>
-						<td><g:message code="custom.job.company.1" /></td>
-						<td><g:message code="custom.job.updated.1" /></td>
-					</tr>
-					<tr>
-						<td><span><g:message code="custom.job.title.5" /></span></td>
-						<td><g:message code="custom.job.location.1" /></td>
-						<td><g:message code="custom.job.company.1" /></td>
-						<td><g:message code="custom.job.updated.1" /></td>
-					</tr>
-					<tr>
-						<td><span><g:message code="custom.job.title.6" /></span></td>
-						<td><g:message code="custom.job.location.1" /></td>
-						<td><g:message code="custom.job.company.1" /></td>
-						<td><g:message code="custom.job.updated.1" /></td>
-					</tr>
-					<tr>
-						<td><span><g:message code="custom.job.title.7" /></span></td>
-						<td><g:message code="custom.job.location.1" /></td>
-						<td><g:message code="custom.job.company.1" /></td>
-						<td><g:message code="custom.job.updated.1" /></td>
-					</tr>
-					<tr>
-						<td><span><g:message code="custom.job.title.8" /></span></td>
-						<td><g:message code="custom.job.location.1" /></td>
-						<td><g:message code="custom.job.company.1" /></td>
-						<td><g:message code="custom.job.updated.1" /></td>
-					</tr>
+					<g:include controller="index" action="getJobList" />
 				</tbody>
 			</table>
 		</div>
