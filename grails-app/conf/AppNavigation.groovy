@@ -21,6 +21,8 @@ navigation = {
 		productGoods(controller:"productGoods", action:"index", visible: loggedIn, order : 1200)
 		//KV
 		kv(controller:"kv", action:"index", visible: loggedIn, order : 1200)
+		//招聘
+		xjob(controller:"xjob", action:"index", visible: loggedIn, order : 1300)
 		//退出
 		signOut(controller:"auth", action:"signOut", visible: loggedIn, order : 9999)
     }

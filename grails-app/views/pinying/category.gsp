@@ -33,7 +33,7 @@
 			<label class="fl"><g:message code="custom.page.category.01" /></label>
 			<div id="appenhtml" class="fl w705">
 				<ul class="fl">
-					<g:if test="${params?.subCategoryId}">
+					<g:if test="${params?.subCategoryId && params.int('subCategoryId') > 0}">
 						<li category="${params?.subCategoryId}">
 							<a href="${createLink(controller:'index', action:'category', id:params?.id)}" title="">
 								<g:include controller="index" action="getCategoryName" params="[categoryId:params?.subCategoryId]" />
@@ -41,7 +41,7 @@
 							</a>
 						</li>
 					</g:if>
-					<g:if test="${params?.brandId}">
+					<g:if test="${params?.brandId && params.int('brandId') > 0}">
 						<li category="${params?.brandId}">
 							<a href="${createLink(action:'category', id:params?.id, params:[subCategoryId:params?.subCategoryId])}" title="">
 								<g:include controller="index" action="getBrandName" params="[brandId:params?.brandId]" />
