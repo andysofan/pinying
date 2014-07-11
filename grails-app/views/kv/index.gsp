@@ -31,6 +31,7 @@
 						<g:sortableColumn property="xname" title="${message(code: 'kv.xname.label', default: 'Xname')}" />
 					
 						<g:sortableColumn property="ximage" title="${message(code: 'kv.ximage.label', default: 'Ximage')}" />
+						<g:sortableColumn property="xurl" title="${message(code: 'kv.xurl.label', default: 'URL')}" />
 					
 						<g:sortableColumn property="xorder" title="${message(code: 'kv.xorder.label', default: 'Xorder')}" />
 					
@@ -49,6 +50,7 @@
 						<td><g:link action="show" id="${kvInstance.id}">${fieldValue(bean: kvInstance, field: "xname")}</g:link></td>
 					
 						<td>${fieldValue(bean: kvInstance, field: "ximage")}</td>
+						<td>${fieldValue(bean: kvInstance, field: "xurl")}</td>
 					
 						<td>${fieldValue(bean: kvInstance, field: "xorder")}</td>
 					

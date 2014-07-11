@@ -33,8 +33,15 @@
 				<g:if test="${kvInstance?.ximage}">
 				<li class="fieldcontain">
 					<span id="ximage-label" class="property-label"><g:message code="kv.ximage.label" default="Ximage" /></span>
+					<span class="property-value" aria-labelledby="ximage-label"><g:fieldValue bean="${kvInstance}" field="ximage"/></span>
+				</li>
+				</g:if>
+
+				<g:if test="${kvInstance?.xurl}">
+				<li class="fieldcontain">
+					<span id="xurl-label" class="property-label"><g:message code="kv.xurl.label" default="URL" /></span>
 					
-						<span class="property-value" aria-labelledby="ximage-label"><g:fieldValue bean="${kvInstance}" field="ximage"/></span>
+						<span class="property-value" aria-labelledby="xurl-label"><g:fieldValue bean="${kvInstance}" field="xurl"/></span>
 					
 				</li>
 				</g:if>

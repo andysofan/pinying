@@ -137,7 +137,6 @@ class AuthController {
     def submitRegister(){
     	try{
 			userService.register(params)
-			
 			chain action : "signIn", params:[username:params?.username, password:params?.password]
     	}catch(e){
     		flash.message = e.getMessage()

@@ -8,6 +8,14 @@
 	<g:textField name="xname" maxlength="100" required="" value="${kvInstance?.xname}"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: kvInstance, field: 'xurl', 'error')} required">
+	<label for="xurl">
+		<g:message code="kv.xurl.label" default="URL" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:textField name="xurl" maxlength="200" required="" value="${kvInstance?.xurl}"/>
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: kvInstance, field: 'xorder', 'error')} required">
 	<label for="xorder">
 		<g:message code="kv.xorder.label" default="Xorder" />

@@ -8,13 +8,13 @@ class BootStrap {
 
     def init = { servletContext ->
 		//用户
-		def adminUserInstance =  User.findByUsername("leaf@pinying".trim().toUpperCase())
+		def adminUserInstance =  User.findByUsername("admin@py".trim().toUpperCase())
 		if(!adminUserInstance){
 			String salt = new SecureRandomNumberGenerator().nextBytes().toHex()	 //生成随机数
 			adminUserInstance = new User(
-				  username: "leaf@pinying"
-				, fullname : "leaf@pinying"
-				, email:"leaf.shi@cyberoller.com"
+				  username: "admin@py"
+				, fullname : "admin@py"
+				, email:"admin@py.com"
 				, passwordHash: new Sha512Hash("12345678", salt).toHex()
 				, passwordSalt:salt
 				, errortimes : 0

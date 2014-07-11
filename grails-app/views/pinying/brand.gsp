@@ -26,7 +26,7 @@
 				s_name = (s_name == '请输入关键字')?'':s_name;
 
 
-			var href="<g:createLink controller='index' action='brand' params='[brandId:params?.brandId, offset:params?.offset?:0,sort:sort, order:order]' />";
+			var href="<g:createLink controller='index' action='brand' params='[brandId:params?.brandId, offset:0,sort:sort, order:order]' />";
 				href+="&marketMinPrice=" + s_marketMinPrice;
 				href+="&marketMaxPrice=" + s_marketMaxPrice;
 				href+="&name=" + s_name;

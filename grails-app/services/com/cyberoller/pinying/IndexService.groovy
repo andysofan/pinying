@@ -281,19 +281,21 @@ class IndexService {
 				eq("parent.id", categoryId)
 			}
 			log.info "**********categoryInstanceList=${categoryInstanceList}"
-			brandInstanceList = ProductCategoryBrand.withCriteria {
-				createAlias "brand", "brand"
-				projections{
-					groupProperty("brand.id","id")
-					groupProperty("brand.xname","name")
+			if(categoryInstanceList){
+				brandInstanceList = ProductCategoryBrand.withCriteria {
+					createAlias "brand", "brand"
+					projections{
+						groupProperty("brand.id","id")
+						groupProperty("brand.xname","name")
+					}
+					join("brand")
+					inList("category.id", categoryInstanceList)
+					if(params?.subCategoryId){
+						eq("category.id", params.int('subCategoryId').toLong())
+					}
+					order("xorderIndex", "asc")
+					resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
 				}
-				join("brand")
-				inList("category.id", categoryInstanceList)
-				if(params?.subCategoryId){
-					eq("category.id", params.int('subCategoryId').toLong())
-				}
-				order("xorderIndex", "asc")
-				resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
 			}
 			log.info "**********brandInstanceList=${brandInstanceList}"
 		}catch(e){
@@ -360,52 +362,54 @@ class IndexService {
 				eq("parent.id", parentCategoryId)
 			}
 			log.info "**********subCategoryInstanceList:${subCategoryInstanceList}"
-			productInstanceList = ProductGoods.withCriteria() {
-				projections{
-					property("id", "id")
-					property("xname", "name")
-					property("xthumbnail", "thumbnail")
-					property("xprice", "price")
-				}
-				//已启用
-				eq("xstatus", 1)
-				
-				//产品分类
-				inList("category.id", subCategoryInstanceList)
-				if(params?.subCategoryId){
-					eq("category.id", params.int('subCategoryId').toLong())
-				}
-				
-				//品牌ID
-				if(params?.brandId){
-					eq("brand.id", params.int('brandId').toLong())
-				}
-				//名称
-				if(params?.name){
-					ilike("xname", "%${params?.name}%")
-				}
-				//价格区间
-				if(params?.marketMinPrice && params?.marketMaxPrice){
-					between("xprice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
-				}else{
-					if(params?.marketMinPrice){
-						ge("xprice", params.int('marketMinPrice').toDouble())
+			if(subCategoryInstanceList){
+				productInstanceList = ProductGoods.withCriteria() {
+					projections{
+						property("id", "id")
+						property("xname", "name")
+						property("xthumbnail", "thumbnail")
+						property("xprice", "price")
 					}
-					if(params?.marketMaxPrice){
-						le("xprice", params.int('marketMaxPrice').toDouble())
+					//已启用
+					eq("xstatus", 1)
+					
+					//产品分类
+					inList("category.id", subCategoryInstanceList)
+					if(params?.subCategoryId){
+						eq("category.id", params.int('subCategoryId').toLong())
 					}
+					
+					//品牌ID
+					if(params?.brandId){
+						eq("brand.id", params.int('brandId').toLong())
+					}
+					//名称
+					if(params?.name){
+						ilike("xname", "%${params?.name}%")
+					}
+					//价格区间
+					if(params?.marketMinPrice && params?.marketMaxPrice){
+						between("xprice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
+					}else{
+						if(params?.marketMinPrice){
+							ge("xprice", params.int('marketMinPrice').toDouble())
+						}
+						if(params?.marketMaxPrice){
+							le("xprice", params.int('marketMaxPrice').toDouble())
+						}
+					}
+					//排序
+					if(params?.order && params?.sort){
+						order(params?.sort, params?.order)
+					}else{
+						order("xorderIndex", "desc")
+					}
+					//偏移量
+					if(params?.offset) firstResult(params.int('offset'))
+					//最大返回行数
+					maxResults(8)
+					resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
 				}
-				//排序
-				if(params?.order && params?.sort){
-					order(params?.sort, params?.order)
-				}else{
-					order("xorderIndex", "desc")
-				}
-				//偏移量
-				if(params?.offset) firstResult(params.int('offset'))
-				//最大返回行数
-				maxResults(8)
-				resultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP)
 			}
 			log.info "**********productInstanceList:${productInstanceList}"
 		}catch(e){
@@ -426,37 +430,38 @@ class IndexService {
 	
 				eq("parent.id", parentCategoryId)
 			}
-
-			productInstanceCount = ProductGoods.withCriteria(uniqueResult:true) {
-				projections{
-					count()
-				}
-				//已启用
-				eq("xstatus", 1)
-				
-				//产品分类
-				inList("category.id", subCategoryInstanceList)
-				if(params?.subCategoryId){
-					eq("category.id", params.int('subCategoryId').toLong())
-				}
-				
-				//品牌ID
-				if(params?.brandId){
-					eq("brand.id", params.int('brandId').toLong())
-				}
-				//名称
-				if(params?.name){
-					ilike("xname", "%${params?.name}%")
-				}
-				//价格区间
-				if(params?.marketMinPrice && params?.marketMaxPrice){
-					between("xprice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
-				}else{
-					if(params?.marketMinPrice){
-						ge("xprice", params.int('marketMinPrice').toDouble())
+			if(subCategoryInstanceList){
+				productInstanceCount = ProductGoods.withCriteria(uniqueResult:true) {
+					projections{
+						count()
 					}
-					if(params?.marketMaxPrice){
-						le("xprice", params.int('marketMaxPrice').toDouble())
+					//已启用
+					eq("xstatus", 1)
+					
+					//产品分类
+					inList("category.id", subCategoryInstanceList)
+					if(params?.subCategoryId){
+						eq("category.id", params.int('subCategoryId').toLong())
+					}
+					
+					//品牌ID
+					if(params?.brandId){
+						eq("brand.id", params.int('brandId').toLong())
+					}
+					//名称
+					if(params?.name){
+						ilike("xname", "%${params?.name}%")
+					}
+					//价格区间
+					if(params?.marketMinPrice && params?.marketMaxPrice){
+						between("xprice", params.int('marketMinPrice').toDouble(), params.int('marketMaxPrice').toDouble())
+					}else{
+						if(params?.marketMinPrice){
+							ge("xprice", params.int('marketMinPrice').toDouble())
+						}
+						if(params?.marketMaxPrice){
+							le("xprice", params.int('marketMaxPrice').toDouble())
+						}
 					}
 				}
 			}
@@ -493,6 +498,7 @@ class IndexService {
 			kvInstanceList = Kv.withCriteria() {
 				projections{
 					property("ximage", "ximage")
+					property("xurl", "xurl")
 				}
 				//已启用
 				eq("xisActive", true)

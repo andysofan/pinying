@@ -16,7 +16,7 @@
 		<g:message code="productGoods.category.label" default="Category" />
 		
 	</label>
-	<g:select id="category" name="category.id" from="${com.cyberoller.pinying.ProductCategory.list()}" optionKey="id" value="${productGoodsInstance?.category?.id}" class="many-to-one" noSelection="['null': '']"/>
+	<g:select id="category" name="category.id" from="${com.cyberoller.pinying.ProductCategory.findAllByParentIsNotNull()}" optionKey="id" value="${productGoodsInstance?.category?.id}" class="many-to-one" noSelection="['null': '']"/>
 
 </div>
 

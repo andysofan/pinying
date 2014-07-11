@@ -46,7 +46,6 @@ V.init=function(){
         //初始化验证器
         var ts=V.initTypes,va;
         for(var i in ts){
-        	console.log(i);
             va={
                 validate:ts[i][1],
                 errorMessage:ts[i][2]

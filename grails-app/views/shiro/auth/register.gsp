@@ -7,6 +7,11 @@
 		~
 		Best Gift
 	</title>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			V.validate($('#container form'));
+		});	
+    </script>
 </head>
 <body>
 	<div id="loginPanel">
@@ -60,11 +65,6 @@
 			</g:form>
 		</div>
 	</div>
-	<script type="text/javascript">
-		$(function(){
-			//V.submitRevalidateList=[$("input[name='captcha']")];
-			V.validate($('#container form'));
-		});	
-    </script>
+
 </body>
 </html>

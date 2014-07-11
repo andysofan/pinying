@@ -5,6 +5,7 @@ class Kv {
 	String xname
 	String ximage
 	Integer xorder
+	String xurl
 	String xdesc
 	Boolean xisActive
 
@@ -15,6 +16,7 @@ class Kv {
 		xname(nullable:false, blank:false, unique:true, maxSize:100)
 		ximage(nullable:true, blank:false, maxSize:100)
 		xorder(nullable:false)
+		xurl(nullable:false, blank:false, maxSize:200)
 		xdesc(nullable:true, blank:false, maxSize:100)
 		xisActive(nullable:false)
     }
